@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SudokuBoard.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Zadanie3</a> &gt; <a href="index.source.html" class="el_package">org.example</a> &gt; <span class="el_source">SudokuBoard.java</span></div><h1>SudokuBoard.java</h1><pre class="source lang-java linenums">package org.example;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+public class SudokuBoard {
+
+    //Deklaracja zmiennej board o wymiarach 9 x 9
+<span class="fc" id="L9">    int[][] board = new int[9][9];</span>
+
+    //konstruktor klasy
+<span class="fc" id="L12">    public SudokuBoard() {</span>
+
+<span class="fc" id="L14">    }</span>
+
+    public void solveGame() {
+<span class="fc" id="L17">        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();</span>
+<span class="fc" id="L18">        sudokuSolver.solve(this);</span>
+<span class="fc" id="L19">    }</span>
+
+    //Funkcja wypisująca całą tablicę sudoku w formacie 9 x 9
+    public void printBoard() {
+<span class="nc bnc" id="L23" title="All 2 branches missed.">        for (int x = 0; x &lt; 9; x++) {</span>
+<span class="nc bnc" id="L24" title="All 2 branches missed.">            for (int y = 0; y &lt; 9; y++) {</span>
+<span class="nc" id="L25">                System.out.print(&quot; &quot; + get(x, y) + &quot; &quot;);</span>
+            }
+<span class="nc" id="L27">            System.out.print(&quot;\n&quot;);</span>
+        }
+<span class="nc" id="L29">    }</span>
+
+    //Funkcja zwracająca kopię tablicy sudoku, ale w formie, w której niemożliwe jest
+    //modyfikowanie jej z zewnątrz
+    public int[][] getBoard() {
+<span class="fc" id="L34">        int[][] tab = new int[9][9];</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        for (int x = 0; x &lt; 9; x++) {</span>
+<span class="fc" id="L36">            System.arraycopy(board[x], 0, tab[x], 0, 9);</span>
+        }
+<span class="fc" id="L38">        return tab;</span>
+    }
+
+    //Funkcja zwracająca liczbę z danych koordynatów x y
+    public int get(int x, int y) {
+<span class="fc" id="L43">        return board[x][y];</span>
+    }
+
+    //Funkcja ustawiająca liczbę na danych koordynatach
+    void set(int x, int y, int num) {
+<span class="fc" id="L48">        board[x][y] = num;</span>
+<span class="fc" id="L49">    }</span>
+
+
+
+    //Funkcja sprawdzająca całą tablicę, czy jest ona poprawna wg zasad sudoku
+    boolean checkBoard(int num, int x, int y) {
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (!checkRow(num, x)) {</span>
+<span class="fc" id="L56">            return false;</span>
+        }
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        if (!checkColumn(num, y)) {</span>
+<span class="fc" id="L59">            return false;</span>
+        }
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (!check3by3(num, x, y)) {</span>
+<span class="fc" id="L62">            return false;</span>
+        }
+<span class="fc" id="L64">        return true;</span>
+    }
+
+    //Funkcja generująca losową cyfrę od 1 do 9
+
+    //Funkcja sprawdzająca danych rząd wg zasad sudoku
+    private boolean checkRow(int num, int x) {
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        for (int y = 0; y &lt; 9; y++) {</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">            if (get(x, y) == num) {</span>
+<span class="fc" id="L73">                return false;</span>
+            }
+        }
+<span class="fc" id="L76">        return true;</span>
+    }
+
+    //FUnkcja sprawdzająca daną kolumnę wg zasad sudoku
+    private boolean checkColumn(int num, int y) {
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        for (int x = 0; x &lt; 9; x++) {</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">            if (get(x, y) == num) {</span>
+<span class="fc" id="L83">                return false;</span>
+            }
+        }
+<span class="fc" id="L86">        return true;</span>
+    }
+
+    //Funkcja sprawdzająca dany kwadrat wg zasad sudoku
+    private boolean check3by3(int num, int x, int y) {
+<span class="fc" id="L91">        x = getXOfSquare(x);</span>
+<span class="fc" id="L92">        y = getYOfSquare(y);</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        for (int i = x; i &lt; x + 3; i++) {</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">            for (int j = y; j &lt; y + 3; j++) {</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">                if (get(i, j) == num) {</span>
+<span class="fc" id="L96">                    return false;</span>
+                }
+            }
+        }
+<span class="fc" id="L100">        return true;</span>
+    }
+
+    //Funkcja znajdująca pierwszy rząd (lewy górny róg) kwadratu po podaniu danej x
+    private int getXOfSquare(int x) {
+<span class="fc" id="L105">        return x - (x % 3);</span>
+    }
+
+    //Funkcja znajdująca pierwszą kolumnę (lewy górny róg) kwadratu po podaniu danej y
+    private int getYOfSquare(int y) {
+<span class="fc" id="L110">        return y - (y % 3);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

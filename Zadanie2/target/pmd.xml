@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd" version="6.55.0" timestamp="2023-10-16T16:40:19.103">
+<file name="/Users/hubert/Documents/Programming/Studia/Programowanie komponentowe/Zadanie3/src/main/java/org/example/Main.java">
+<violation beginline="3" endline="3" begincolumn="1" endcolumn="24" rule="UnnecessaryImport" ruleset="Code Style" package="org.example" class="Main" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
+Unused import 'java.util.Random'
+</violation>
+</file>
+<file name="/Users/hubert/Documents/Programming/Studia/Programowanie komponentowe/Zadanie3/src/main/java/org/example/SudokuBoard.java">
+<violation beginline="3" endline="3" begincolumn="1" endcolumn="27" rule="UnnecessaryImport" ruleset="Code Style" package="org.example" class="SudokuBoard" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
+Unused import 'java.util.ArrayList'
+</violation>
+<violation beginline="4" endline="4" begincolumn="1" endcolumn="24" rule="UnnecessaryImport" ruleset="Code Style" package="org.example" class="SudokuBoard" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
+Unused import 'java.util.Random'
+</violation>
+</file>
+<file name="/Users/hubert/Documents/Programming/Studia/Programowanie komponentowe/Zadanie3/src/main/java/org/example/SudokuSolver.java">
+<violation beginline="4" endline="4" begincolumn="12" endcolumn="44" rule="UnnecessaryModifier" ruleset="Code Style" package="org.example" class="SudokuSolver" method="solve" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessarymodifier" priority="3">
+Unnecessary modifier 'public' on method 'solve': the method is declared in an interface type
+</violation>
+</file>
+</pmd>
