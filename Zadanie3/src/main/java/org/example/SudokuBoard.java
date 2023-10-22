@@ -22,16 +22,6 @@ public class SudokuBoard {
         sudokuSolver.solve(this);
     }
 
-    //Funkcja zwracająca kopię tablicy sudoku, ale w formie, w której niemożliwe jest
-    //modyfikowanie jej z zewnątrz
-    public int[][] getBoard() {
-        int[][] tab = new int[9][9];
-        for (int x = 0; x < 9; x++) {
-            System.arraycopy(board[x], 0, tab[x], 0, 9);
-        }
-        return tab;
-    }
-
     //Funkcja zwracająca liczbę z danych koordynatów x y
     public int get(int x, int y) {
         return board[x][y];
@@ -41,8 +31,6 @@ public class SudokuBoard {
     public void set(int x, int y, int num) {
         board[x][y] = num;
     }
-
-
 
     //Funkcja sprawdzająca całą tablicę, czy jest ona poprawna wg zasad sudoku
     boolean checkBoard(int num, int x, int y) {
@@ -57,8 +45,6 @@ public class SudokuBoard {
         }
         return true;
     }
-
-    //Funkcja generująca losową cyfrę od 1 do 9
 
     //Funkcja sprawdzająca danych rząd wg zasad sudoku
     private boolean checkRow(int num, int x) {

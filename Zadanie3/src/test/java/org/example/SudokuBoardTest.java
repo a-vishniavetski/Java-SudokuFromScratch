@@ -14,7 +14,13 @@ public class SudokuBoardTest {
         BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
         SudokuBoard board = new SudokuBoard(sudokuSolver);
         board.solveGame();
-        int[][] board_arr = board.getBoard();
+        int[][] board_arr = new int[9][9];
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9 ; j++) {
+                board_arr[i][j] = board.get(i, j);
+            }
+        }
 
         // ----- WIERZE -----
         for (int y = 0; y < 9; y++){
@@ -73,10 +79,18 @@ public class SudokuBoardTest {
         int[][] board2 = new int[9][9];
 
         board.solveGame();
-        board1 = board.getBoard();
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9 ; j++) {
+                board1[i][j] = board.get(i, j);
+            }
+        }
 
         board.solveGame();
-        board2 = board.getBoard();
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                board2[i][j] = board.get(i, j);
+            }
+        }
 
         // sprawdzamy czy tablice są równe
         boolean has_different_elements = false;
