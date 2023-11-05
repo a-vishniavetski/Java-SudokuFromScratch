@@ -13,12 +13,12 @@ abstract class SudokuElement {
     }
 
     public boolean verify() {
-        Set<Integer> number_set = new HashSet<>();
-        ArrayList<Integer> number_list = new ArrayList<>();
+        Set<Integer> numberSet = new HashSet<>();
+        ArrayList<Integer> numberList = new ArrayList<>();
         for (int i = 0; i < array.length; i++) {
-            number_set.add(array[i].getFieldValue());
-            number_list.add(array[i].getFieldValue());
+            numberSet.add(array[i].getFieldValue());
+            numberList.add(array[i].getFieldValue());
         }
-        return number_set.size() == number_list.size();
+        return numberSet.size() == numberList.size();
     }
 }

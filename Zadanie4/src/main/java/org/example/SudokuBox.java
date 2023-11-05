@@ -1,6 +1,6 @@
 package org.example;
 
-public class SudokuBox extends SudokuElement{
+public class SudokuBox extends SudokuElement {
     public SudokuBox(SudokuField[] array) {
         super(array);
     }

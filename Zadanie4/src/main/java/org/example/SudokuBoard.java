@@ -12,18 +12,12 @@ public class SudokuBoard {
     }
 
     public void solveGame() {
+        // oczyszcamy tablicę
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 board[i][j] = new SudokuField(0);
             }
         }
-
-        // oczyszcamy tablicę
-//        for (int i = 0; i < 9; i++) {
-//            for (int j = 0; j < 9; j++) {
-//                board[i][j].setFieldValue(0);
-//            }
-//        }
 
         sudokuSolver.solve(this);
     }
