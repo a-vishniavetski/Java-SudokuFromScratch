@@ -6,7 +6,7 @@ import java.util.Set;
 
 abstract class SudokuElement {
 
-    SudokuField[] array = new SudokuField[9];
+    public SudokuField[] array = new SudokuField[9];
 
     public SudokuElement(SudokuField[] array) {
         this.array = array;

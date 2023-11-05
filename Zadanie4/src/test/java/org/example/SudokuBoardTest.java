@@ -8,19 +8,65 @@ import java.util.ArrayList;
 
 public class SudokuBoardTest {
 
+    // testuje czy GetRow zwraca poprawną tablicę
+    @Test
+    public void GetRowTest() {
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(sudokuSolver);
+        board.solveGame();
+
+        for (int i = 0; i < 9; i++) {
+            SudokuRow row = board.getRow(i);
+            for (int j = 0; j < 9; j++) {
+                assertEquals(board.get(i, j), row.array[j].getFieldValue());
+            }
+        }
+    }
+
+
+    // testuje czy GetColumn zwraca poprawną tablicę
+    @Test
+    public void GetColumnTest() {
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(sudokuSolver);
+        board.solveGame();
+
+        for (int i = 0; i < 9; i++) {
+            SudokuColumn column = board.getColumn(i);
+            for (int j = 0; j < 9; j++) {
+                assertEquals(board.get(j, i), column.array[j].getFieldValue());
+            }
+        }
+    }
+
+    // testuje czy GetBox zwraca poprawną tablicę
+    @Test
+    public void GetBoxTest() {
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(sudokuSolver);
+        board.solveGame();
+
+        for (int i = 0; i < 9; i += 3) {
+            for (int j = 0; j < 9 ; j += 3) {
+                SudokuBox box = board.getBox(i, j);
+                int k = 0;
+                for (int x = i; x < i + 3; x++) {
+                    for (int y = j; y < j + 3; y++) {
+                        assertEquals(board.get(x, y), box.array[k].getFieldValue());
+                        k++;
+                    }
+                }
+            }
+        }
+    }
+
+
     // testuje czy wygenerowana przez FillBoard tablica jest poprawna
     @Test
     public void SolveGameTest(){
         BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
         SudokuBoard board = new SudokuBoard(sudokuSolver);
         board.solveGame();
-        int[][] board_arr = new int[9][9];
-
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9 ; j++) {
-                board_arr[i][j] = board.get(i, j);
-            }
-        }
 
         // ----- WIERZE -----
         for (int y = 0; y < 9; y++){
@@ -28,8 +74,8 @@ public class SudokuBoardTest {
             ArrayList<Integer> number_list = new ArrayList<>();
 
             for (int x = 0; x < 9; x++) {
-                number_set.add(board_arr[x][y]);
-                number_list.add(board_arr[x][y]);
+                number_set.add(board.get(x, y));
+                number_list.add(board.get(x, y));
             }
 
             // jak liczby się nie powtarzają to rozmiar seta będzie równy rozmiarowi listy
@@ -42,8 +88,8 @@ public class SudokuBoardTest {
             ArrayList<Integer> number_list = new ArrayList<>();
 
             for (int y = 0; y < 9; y++) {
-                number_set.add(board_arr[x][y]);
-                number_list.add(board_arr[x][y]);
+                number_set.add(board.get(x, y));
+                number_list.add(board.get(x, y));
             }
 
             // jak liczby się nie powtarzają to rozmiar seta będzie równy rozmiarowi listy
@@ -58,8 +104,8 @@ public class SudokuBoardTest {
 
                 for (int i = 0; i < 3; i++) {
                     for (int j = 0; j < 3; j++) {
-                        number_set.add(board_arr[x + i][y + j]);
-                        number_list.add(board_arr[x + i][y + j]);
+                        number_set.add(board.get(x + i, y + j));
+                        number_list.add(board.get(x + i, y + j));
                     }
                 }
 

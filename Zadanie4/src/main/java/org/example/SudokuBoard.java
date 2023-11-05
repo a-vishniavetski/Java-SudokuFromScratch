@@ -117,6 +117,7 @@ public class SudokuBoard {
         return new SudokuColumn(array);
     }
 
+    /*
     //testowe funkcje
     public void printBoard() {
         for (int i = 0; i < 9; i++) {
@@ -152,4 +153,5 @@ public class SudokuBoard {
             k++;
         }
     }
+    */
 }
