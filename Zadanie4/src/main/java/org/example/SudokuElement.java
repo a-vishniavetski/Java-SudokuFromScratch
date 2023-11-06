@@ -19,6 +19,11 @@ abstract class SudokuElement {
             numberSet.add(array[i].getFieldValue());
             numberList.add(array[i].getFieldValue());
         }
+
+        // usuwamy 0 z listy i setu
+        numberList.removeIf(n -> (n == 0));
+        numberSet.removeIf(n -> (n == 0));
+
         return numberSet.size() == numberList.size();
     }
 }

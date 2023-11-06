@@ -1,5 +1,8 @@
 package org.example;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 public class SudokuBoard {
 
     //Deklaracja zmiennej board o wymiarach 9 x 9
@@ -8,6 +11,13 @@ public class SudokuBoard {
 
     //konstruktor klasy
     public SudokuBoard(BacktrackingSudokuSolver sudokuSolver) {
+        // zerujemy tablicę
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                board[i][j] = new SudokuField(0);
+            }
+        }
+
         this.sudokuSolver = sudokuSolver;
     }
 
@@ -29,7 +39,18 @@ public class SudokuBoard {
 
     //Funkcja ustawiająca liczbę na danych koordynatach
     public void set(int x, int y, int num) {
+        // zapisujemy tablice przed zmianą aby zaktualizować listenerów
+        SudokuField[][] oldBoard = new SudokuField[9][9];
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                oldBoard[i][j] = new SudokuField(board[i][j].getFieldValue());
+            }
+        }
+
         board[x][y].setFieldValue(num);
+
+        // zaktualiujemy listenerów
+        notifyListeners(oldBoard);
     }
 
     //Funkcja sprawdzająca całą tablicę, czy jest ona poprawna wg zasad sudoku
@@ -115,6 +136,21 @@ public class SudokuBoard {
             array[i] = board[i][x];
         }
         return new SudokuColumn(array);
+    }
+
+    // pomaga korzystać z wzorca projektowego Listener zaimplementowanego przez JavaBean
+    public PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(listener);
+    }
+
+    private void notifyListeners(SudokuField[][] oldBoard) {
+        propertyChangeSupport.firePropertyChange("board", oldBoard, board);
     }
 
     /*

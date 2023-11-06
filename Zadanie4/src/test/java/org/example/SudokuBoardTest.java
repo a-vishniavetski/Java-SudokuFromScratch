@@ -2,6 +2,8 @@ package org.example;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.beans.PropertyChangeListener;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.ArrayList;
@@ -150,5 +152,28 @@ public class SudokuBoardTest {
         }
         assertTrue(has_different_elements);
 
+    }
+
+    @Test
+    public void AddRemoveListenerTest() {
+        // tworzymy deskę
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(sudokuSolver);
+
+        // dodajemy listenera
+        SudokuBoardChangeListener listener = new SudokuBoardChangeListener();
+        board.addPropertyChangeListener(listener);
+
+        // sprawdzamy czy on się dodał
+        PropertyChangeListener[] added_listeners = board.propertyChangeSupport.getPropertyChangeListeners();
+
+        assertTrue(added_listeners.length == 1);
+        assertTrue(added_listeners[0] == listener);
+
+        // sprawdzamy czy można jego usuwać
+        board.removePropertyChangeListener(listener);
+        added_listeners = board.propertyChangeSupport.getPropertyChangeListeners();
+
+        assertTrue(added_listeners.length == 0);
     }
 }
