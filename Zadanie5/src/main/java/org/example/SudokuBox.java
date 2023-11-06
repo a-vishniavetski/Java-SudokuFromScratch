@@ -1,7 +1,9 @@
 package org.example;
 
+import java.util.List;
+
 public class SudokuBox extends SudokuElement {
-    public SudokuBox(SudokuField[] array) {
+    public SudokuBox(List<SudokuField> array) {
         super(array);
     }
 

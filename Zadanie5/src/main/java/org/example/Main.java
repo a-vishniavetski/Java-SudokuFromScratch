@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Main {
@@ -11,7 +13,9 @@ public class Main {
         board.addPropertyChangeListener(listener);
 
         board.solveGame();
-
+        board.printBoard();
+//        List<List<Integer>> lista = Arrays.asList(Arrays.asList(new Integer[9]));
+//        lista.get(0).set(0, 1);
         /*
         board.printBoard();
 

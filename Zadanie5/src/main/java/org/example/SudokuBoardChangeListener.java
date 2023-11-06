@@ -2,6 +2,8 @@ package org.example;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class SudokuBoardChangeListener implements PropertyChangeListener {
@@ -9,14 +11,17 @@ public class SudokuBoardChangeListener implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         System.out.println("\nSudokuBoardChangeListener: ");
-        SudokuField[][] oldBoard = (SudokuField[][]) evt.getOldValue();
+        List<List<SudokuField>> oldBoard = Arrays.asList((List<SudokuField>) evt.getOldValue());
 
         // jeśli oldBoard ma wartość null to znaczy że to jest pierwsza zmiana na desce i trzeba ją wyzerować
-        if (oldBoard[0][0] == null) {
-            oldBoard = new SudokuField[9][9];
+        if (oldBoard.get(0).get(0) == null) {
+            for (int i = 0; i < 9; i++) {
+                oldBoard.set(i, Arrays.asList(new SudokuField[9]));
+            }
             for (int y = 0; y < 9; y++) {
                 for (int x = 0; x < 9; x++) {
-                    oldBoard[y][x] = new SudokuField(0);
+//                    oldBoard[y][x] = new SudokuField(0);
+                    oldBoard.get(y).set(x, new SudokuField(0));
                 }
             }
         }
@@ -26,9 +31,9 @@ public class SudokuBoardChangeListener implements PropertyChangeListener {
         // wypisujemy każdy SudokuField który się zmienił
         for (int y = 0; y < 9; y++) {
             for (int x = 0; x < 9; x++) {
-                if (oldBoard[y][x].getFieldValue() != newBoard[y][x].getFieldValue()) {
+                if (oldBoard.get(y).get(x).getFieldValue() != newBoard[y][x].getFieldValue()) {
                     System.out.println("SudokuField[" + y + "][" + x + "] changed from "
-                            + oldBoard[y][x].getFieldValue() + " to " + newBoard[y][x].getFieldValue());
+                            + oldBoard.get(y).get(x).getFieldValue() + " to " + newBoard[y][x].getFieldValue());
                 }
             }
         }

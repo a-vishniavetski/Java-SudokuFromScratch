@@ -2,19 +2,31 @@ package org.example;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SudokuBoard {
 
     //Deklaracja zmiennej board o wymiarach 9 x 9
-    private SudokuField[][] board = new SudokuField[9][9];
+//    Zrodlo fixed listy
+//    https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html#asList-T...-
+//    private SudokuField[][] board = new SudokuField[9][9];
+    private List<List<SudokuField>> board = Arrays.asList(new List[9]);
     private BacktrackingSudokuSolver sudokuSolver;
 
     //konstruktor klasy
     public SudokuBoard(BacktrackingSudokuSolver sudokuSolver) {
+
+        for (int i = 0; i < 9; i++) {
+            board.set(i, Arrays.asList(new SudokuField[9]));
+        }
+
         // zerujemy tablicę
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                board[i][j] = new SudokuField(0);
+//                board[i][j] = new SudokuField(0);
+                board.get(i).set(j, new SudokuField(0));
             }
         }
 
@@ -25,7 +37,8 @@ public class SudokuBoard {
         // oczyszcamy tablicę
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                board[i][j] = new SudokuField(0);
+//                board[i][j] = new SudokuField(0);
+                board.get(i).set(j, new SudokuField(0));
             }
         }
 
@@ -34,7 +47,8 @@ public class SudokuBoard {
 
     //Funkcja zwracająca liczbę z danych koordynatów x y
     public int get(int x, int y) {
-        return board[x][y].getFieldValue();
+//        return board[x][y].getFieldValue();
+        return board.get(x).get(y).getFieldValue();
     }
 
     //Funkcja ustawiająca liczbę na danych koordynatach
@@ -43,11 +57,13 @@ public class SudokuBoard {
         SudokuField[][] oldBoard = new SudokuField[9][9];
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                oldBoard[i][j] = new SudokuField(board[i][j].getFieldValue());
+//                oldBoard[i][j] = new SudokuField(board[i][j].getFieldValue());
+                oldBoard[i][j] = new SudokuField(board.get(i).get(j).getFieldValue());
             }
         }
 
-        board[x][y].setFieldValue(num);
+//        board[x][y].setFieldValue(num);
+        board.get(x).get(y).setFieldValue(num);
 
         // zaktualiujemy listenerów
         notifyListeners(oldBoard);
@@ -111,14 +127,16 @@ public class SudokuBoard {
         return y - (y % 3);
     }
 
-    public SudokuBox getBox(int x, int y) {
+    public SudokuBox getBox(int x, int y){
         x = getXOfSquare(x);
         y = getYOfSquare(y);
-        SudokuField[] array = new SudokuField[9];
+//        SudokuField[] array = new SudokuField[9];
+        List<SudokuField> array = Arrays.asList(new SudokuField[9]);
         int k = 0;
         for (int i = x; i < x + 3; i++) {
             for (int j = y; j < y + 3; j++) {
-                array[k] = board[i][j];
+//                array[k] = board[i][j];
+                array.set(k, board.get(i).get(j));
                 k++;
             }
         }
@@ -126,14 +144,17 @@ public class SudokuBoard {
     }
 
     public SudokuRow getRow(int y) {
-        SudokuField[] array = board[y];
+//        SudokuField[] array = board[y];
+        List<SudokuField> array = board.get(y);
         return new SudokuRow(array);
     }
 
     public SudokuColumn getColumn(int x) {
-        SudokuField[] array = new SudokuField[9];
+//        SudokuField[] array = new SudokuField[9];
+        List<SudokuField> array = Arrays.asList(new SudokuField[9]);
         for (int i = 0; i < 9; i++) {
-            array[i] = board[i][x];
+//            array[i] = board[i][x];
+            array.set(i, board.get(i).get(x));
         }
         return new SudokuColumn(array);
     }
@@ -153,12 +174,12 @@ public class SudokuBoard {
         propertyChangeSupport.firePropertyChange("board", oldBoard, board);
     }
 
-    /*
+
     //testowe funkcje
     public void printBoard() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                System.out.print(" " + board[i][j].getFieldValue() + " ");
+                System.out.print(" " + board.get(i).get(j).getFieldValue() + " ");
             }
             System.out.println();
         }
@@ -167,14 +188,14 @@ public class SudokuBoard {
     public void printRow(int y) {
         SudokuRow row = getRow(y);
         for (int i = 0; i < 9; i++) {
-            System.out.print(" " + row.array[i].getFieldValue() + " ");
+            System.out.print(" " + row.array.get(i).getFieldValue() + " ");
         }
     }
 
     public void printColumn(int x) {
         SudokuColumn column = getColumn(x);
         for (int i = 0; i < 9; i++) {
-            System.out.print(" " + column.array[i].getFieldValue() + " ");
+            System.out.print(" " + column.array.get(i).getFieldValue() + " ");
         }
     }
 
@@ -182,12 +203,12 @@ public class SudokuBoard {
         SudokuBox box = getBox(x, y);
         int k = 1;
         for (int i = 0; i < 9; i++) {
-            System.out.print(" " + box.array[i].getFieldValue() + " ");
+            System.out.print(" " + box.array.get(i).getFieldValue() + " ");
             if (k % 3 == 0) {
                 System.out.println();
             }
             k++;
         }
     }
-    */
+
 }
