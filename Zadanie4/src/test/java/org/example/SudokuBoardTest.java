@@ -72,47 +72,18 @@ public class SudokuBoardTest {
 
         // ----- WIERZE -----
         for (int y = 0; y < 9; y++){
-            Set<Integer> number_set = new HashSet<>();
-            ArrayList<Integer> number_list = new ArrayList<>();
-
-            for (int x = 0; x < 9; x++) {
-                number_set.add(board.get(x, y));
-                number_list.add(board.get(x, y));
-            }
-
-            // jak liczby się nie powtarzają to rozmiar seta będzie równy rozmiarowi listy
-            assertTrue(number_set.size() == number_list.size());
+            assertTrue(board.getRow(y).verify());
         }
 
         // ----- KOLUMNY -----
         for (int x = 0; x < 9; x++){
-            Set<Integer> number_set = new HashSet<>();
-            ArrayList<Integer> number_list = new ArrayList<>();
-
-            for (int y = 0; y < 9; y++) {
-                number_set.add(board.get(x, y));
-                number_list.add(board.get(x, y));
-            }
-
-            // jak liczby się nie powtarzają to rozmiar seta będzie równy rozmiarowi listy
-            assertTrue(number_set.size() == number_list.size());
+            assertTrue(board.getColumn(x).verify());
         }
 
         // ----- KWADRATY 3x3 -----
         for (int x = 0; x < 9; x += 3) {
             for (int y = 0; y < 9; y += 3) {
-                Set<Integer> number_set = new HashSet<>();
-                ArrayList<Integer> number_list = new ArrayList<>();
-
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        number_set.add(board.get(x + i, y + j));
-                        number_list.add(board.get(x + i, y + j));
-                    }
-                }
-
-                // jak liczby się nie powtarzają to rozmiar seta będzie równy rozmiarowi listy
-                assertTrue(number_set.size() == number_list.size());
+                assertTrue(board.getBox(x, y).verify());
             }
         }
     }
