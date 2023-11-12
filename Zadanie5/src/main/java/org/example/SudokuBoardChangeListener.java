@@ -11,7 +11,7 @@ public class SudokuBoardChangeListener implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         System.out.println("\nSudokuBoardChangeListener: ");
-        List<List<SudokuField>> oldBoard = Arrays.asList((List<SudokuField>) evt.getOldValue());
+        List<List<SudokuField>> oldBoard = (List<List<SudokuField>>) evt.getOldValue();
 
         // jeśli oldBoard ma wartość null to znaczy że to jest pierwsza zmiana na desce i trzeba ją wyzerować
         if (oldBoard.get(0).get(0) == null) {
@@ -20,7 +20,7 @@ public class SudokuBoardChangeListener implements PropertyChangeListener {
             }
             for (int y = 0; y < 9; y++) {
                 for (int x = 0; x < 9; x++) {
-//                    oldBoard[y][x] = new SudokuField(0);
+                    //oldBoard[y][x] = new SudokuField(0);
                     oldBoard.get(y).set(x, new SudokuField(0));
                 }
             }

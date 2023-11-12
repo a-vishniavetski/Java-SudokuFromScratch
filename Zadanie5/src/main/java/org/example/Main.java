@@ -14,8 +14,8 @@ public class Main {
 
         board.solveGame();
         board.printBoard();
-//        List<List<Integer>> lista = Arrays.asList(Arrays.asList(new Integer[9]));
-//        lista.get(0).set(0, 1);
+        //List<List<Integer>> lista = Arrays.asList(Arrays.asList(new Integer[9]));
+        //lista.get(0).set(0, 1);
         /*
         board.printBoard();
 

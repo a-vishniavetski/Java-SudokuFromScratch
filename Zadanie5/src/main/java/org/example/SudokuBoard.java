@@ -9,9 +9,9 @@ import java.util.List;
 public class SudokuBoard {
 
     //Deklaracja zmiennej board o wymiarach 9 x 9
-//    Zrodlo fixed listy
-//    https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html#asList-T...-
-//    private SudokuField[][] board = new SudokuField[9][9];
+    //Zrodlo fixed listy
+    //https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html#asList-T...-
+    //private SudokuField[][] board = new SudokuField[9][9];
     private List<List<SudokuField>> board = Arrays.asList(new List[9]);
     private BacktrackingSudokuSolver sudokuSolver;
 
@@ -25,7 +25,7 @@ public class SudokuBoard {
         // zerujemy tablicę
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-//                board[i][j] = new SudokuField(0);
+                //board[i][j] = new SudokuField(0);
                 board.get(i).set(j, new SudokuField(0));
             }
         }
@@ -37,7 +37,7 @@ public class SudokuBoard {
         // oczyszcamy tablicę
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-//                board[i][j] = new SudokuField(0);
+                //board[i][j] = new SudokuField(0);
                 board.get(i).set(j, new SudokuField(0));
             }
         }
@@ -47,25 +47,28 @@ public class SudokuBoard {
 
     //Funkcja zwracająca liczbę z danych koordynatów x y
     public int get(int x, int y) {
-//        return board[x][y].getFieldValue();
+        //return board[x][y].getFieldValue();
         return board.get(x).get(y).getFieldValue();
     }
 
     //Funkcja ustawiająca liczbę na danych koordynatach
     public void set(int x, int y, int num) {
         // zapisujemy tablice przed zmianą aby zaktualizować listenerów
-        SudokuField[][] oldBoard = new SudokuField[9][9];
+        //SudokuField[][] oldBoard = new SudokuField[9][9];
+        List<List<SudokuField>> oldBoard = Arrays.asList(new List[9]);
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-//                oldBoard[i][j] = new SudokuField(board[i][j].getFieldValue());
-                oldBoard[i][j] = new SudokuField(board.get(i).get(j).getFieldValue());
+                //oldBoard[i][j] = new SudokuField(board[i][j].getFieldValue());
+                //oldBoard[i][j] = new SudokuField(board.get(i).get(j).getFieldValue());
+                oldBoard.get(i).set(j, new SudokuField(board.get(i).get(j).getFieldValue()));
             }
         }
 
-//        board[x][y].setFieldValue(num);
+        //board[x][y].setFieldValue(num);
         board.get(x).get(y).setFieldValue(num);
 
         // zaktualiujemy listenerów
+        //notifyListeners(oldBoard);
         notifyListeners(oldBoard);
     }
 
@@ -127,15 +130,15 @@ public class SudokuBoard {
         return y - (y % 3);
     }
 
-    public SudokuBox getBox(int x, int y){
+    public SudokuBox getBox(int x, int y) {
         x = getXOfSquare(x);
         y = getYOfSquare(y);
-//        SudokuField[] array = new SudokuField[9];
+        //SudokuField[] array = new SudokuField[9];
         List<SudokuField> array = Arrays.asList(new SudokuField[9]);
         int k = 0;
         for (int i = x; i < x + 3; i++) {
             for (int j = y; j < y + 3; j++) {
-//                array[k] = board[i][j];
+                //array[k] = board[i][j];
                 array.set(k, board.get(i).get(j));
                 k++;
             }
@@ -144,16 +147,16 @@ public class SudokuBoard {
     }
 
     public SudokuRow getRow(int y) {
-//        SudokuField[] array = board[y];
+        //SudokuField[] array = board[y];
         List<SudokuField> array = board.get(y);
         return new SudokuRow(array);
     }
 
     public SudokuColumn getColumn(int x) {
-//        SudokuField[] array = new SudokuField[9];
+        //SudokuField[] array = new SudokuField[9];
         List<SudokuField> array = Arrays.asList(new SudokuField[9]);
         for (int i = 0; i < 9; i++) {
-//            array[i] = board[i][x];
+            //array[i] = board[i][x];
             array.set(i, board.get(i).get(x));
         }
         return new SudokuColumn(array);
@@ -170,7 +173,7 @@ public class SudokuBoard {
         propertyChangeSupport.removePropertyChangeListener(listener);
     }
 
-    private void notifyListeners(SudokuField[][] oldBoard) {
+    private void notifyListeners(List<List<SudokuField>> oldBoard) {
         propertyChangeSupport.firePropertyChange("board", oldBoard, board);
     }
 

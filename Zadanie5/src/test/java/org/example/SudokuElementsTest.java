@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Set;
@@ -12,25 +13,26 @@ public class SudokuElementsTest {
     @Test
     public void PositiveVerifyTest(){
         // SudokuRow
-        SudokuField[] RowArray = new SudokuField[9];
+        //SudokuField[] RowArray = new SudokuField[9]; stara implementacja
+        List<SudokuField> RowArray = Arrays.asList(new SudokuField[9]);
         for (int i = 0; i < 9; i++) {
-            RowArray[i] = new SudokuField(i);
+            RowArray.set(i, new SudokuField(i));
         }
         SudokuElement RowElement = new SudokuRow(RowArray);
         assertTrue(RowElement.verify());
 
         // sudokuColumn
-        SudokuField[] ColumnArray = new SudokuField[9];
+        List<SudokuField> ColumnArray = Arrays.asList(new SudokuField[9]);
         for (int i = 0; i < 9; i++) {
-            ColumnArray[i] = new SudokuField(i);
+            ColumnArray.set(i, new SudokuField(i));
         }
         SudokuElement ColumnElement = new SudokuColumn(ColumnArray);
         assertTrue(ColumnElement.verify());
 
         // SudokuBox
-        SudokuField[] BoxArray = new SudokuField[9];
+        List<SudokuField> BoxArray = Arrays.asList(new SudokuField[9]);
         for (int i = 0; i < 9; i++) {
-            BoxArray[i] = new SudokuField(i);
+            BoxArray.set(i, new SudokuField(i));
         }
         SudokuElement BoxElement = new SudokuBox(BoxArray);
         assertTrue(BoxElement.verify());
@@ -41,36 +43,36 @@ public class SudokuElementsTest {
     @Test
     public void NegativeVerifyTest() {
         // SudokuRow
-        SudokuField[] RowArray = new SudokuField[9];
+        List<SudokuField> RowArray = Arrays.asList(new SudokuField[9]);
         for (int i = 0; i < 9; i++) {
-            RowArray[i] = new SudokuField(i);
+            RowArray.set(i, new SudokuField(i));
         }
 
         // zmieniamy dwa elementy na takie same
-        RowArray[0] = new SudokuField(1);
-        RowArray[1] = new SudokuField(1);
+        RowArray.set(0, new SudokuField(1));
+        RowArray.set(1, new SudokuField(1));
 
         SudokuElement RowElement = new SudokuRow(RowArray);
         assertFalse(RowElement.verify());
 
         // SudokuColumn
-        SudokuField[] ColumnArray = new SudokuField[9];
+        List<SudokuField> ColumnArray = Arrays.asList(new SudokuField[9]);
         for (int i = 0; i < 9; i++) {
-            ColumnArray[i] = new SudokuField(i);
+            ColumnArray.set(i, new SudokuField(i));
         }
-        ColumnArray[0] = new SudokuField(1);
-        ColumnArray[1] = new SudokuField(1);
+        ColumnArray.set(0, new SudokuField(1));
+        ColumnArray.set(1, new SudokuField(1));
 
         SudokuElement ColumnElement = new SudokuColumn(ColumnArray);
         assertFalse(ColumnElement.verify());
 
         // sudokuBox
-        SudokuField[] BoxArray = new SudokuField[9];
+        List<SudokuField> BoxArray = Arrays.asList(new SudokuField[9]);
         for (int i = 0; i < 9; i++) {
-            BoxArray[i] = new SudokuField(i);
+            BoxArray.set(i, new SudokuField(i));
         }
-        BoxArray[0] = new SudokuField(1);
-        BoxArray[1] = new SudokuField(1);
+        BoxArray.set(0, new SudokuField(1));
+        BoxArray.set(1, new SudokuField(1));
 
         SudokuElement BoxElement = new SudokuBox(BoxArray);
         assertFalse(BoxElement.verify());

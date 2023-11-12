@@ -4,7 +4,7 @@ import java.util.*;
 
 abstract class SudokuElement {
 
-//    public SudokuField[] array = new SudokuField[9];
+    //public SudokuField[] array = new SudokuField[9];
     public List<SudokuField> array = Arrays.asList(new SudokuField[9]);
 
     public SudokuElement(List<SudokuField> array) {

@@ -20,7 +20,7 @@ public class SudokuBoardTest {
         for (int i = 0; i < 9; i++) {
             SudokuRow row = board.getRow(i);
             for (int j = 0; j < 9; j++) {
-                assertEquals(board.get(i, j), row.array[j].getFieldValue());
+                assertEquals(board.get(i, j), row.array.get(j).getFieldValue());
             }
         }
     }
@@ -36,7 +36,7 @@ public class SudokuBoardTest {
         for (int i = 0; i < 9; i++) {
             SudokuColumn column = board.getColumn(i);
             for (int j = 0; j < 9; j++) {
-                assertEquals(board.get(j, i), column.array[j].getFieldValue());
+                assertEquals(board.get(j, i), column.array.get(j).getFieldValue());
             }
         }
     }
@@ -54,7 +54,7 @@ public class SudokuBoardTest {
                 int k = 0;
                 for (int x = i; x < i + 3; x++) {
                     for (int y = j; y < j + 3; y++) {
-                        assertEquals(board.get(x, y), box.array[k].getFieldValue());
+                        assertEquals(board.get(x, y), box.array.get(k).getFieldValue());
                         k++;
                     }
                 }
