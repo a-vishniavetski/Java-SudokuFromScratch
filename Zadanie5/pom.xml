@@ -26,8 +26,11 @@
     </developers>
 
     <licenses>
-        <license><name>MIT</name></license>
-    </licenses>    
+        <license>
+            <name>The MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
 
     <properties>
         <java.version>20</java.version>

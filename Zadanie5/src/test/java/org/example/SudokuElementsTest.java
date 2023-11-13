@@ -77,5 +77,14 @@ public class SudokuElementsTest {
         SudokuElement BoxElement = new SudokuBox(BoxArray);
         assertFalse(BoxElement.verify());
     }
+
+    @Test
+    public void ConstructorTest() {
+        assertDoesNotThrow(() -> {
+            SudokuRow row = new SudokuRow(Arrays.asList(new SudokuField[9]));
+            SudokuColumn column = new SudokuColumn(Arrays.asList(new SudokuField[9]));
+            SudokuBox box = new SudokuBox(Arrays.asList(new SudokuField[9]));
+        });
+    }
 }
 

@@ -2,7 +2,6 @@ package org.example;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,6 +12,7 @@ public class SudokuBoard {
     //https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html#asList-T...-
     //private SudokuField[][] board = new SudokuField[9][9];
     private List<List<SudokuField>> board = Arrays.asList(new List[9]);
+
     private BacktrackingSudokuSolver sudokuSolver;
 
     //konstruktor klasy
@@ -56,6 +56,10 @@ public class SudokuBoard {
         // zapisujemy tablice przed zmianą aby zaktualizować listenerów
         //SudokuField[][] oldBoard = new SudokuField[9][9];
         List<List<SudokuField>> oldBoard = Arrays.asList(new List[9]);
+        for (int i = 0; i < 9; i++) {
+            oldBoard.set(i, Arrays.asList(new SudokuField[9]));
+        }
+
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 //oldBoard[i][j] = new SudokuField(board[i][j].getFieldValue());
@@ -179,7 +183,7 @@ public class SudokuBoard {
 
 
     //testowe funkcje
-    public void printBoard() {
+    /*public void printBoard() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 System.out.print(" " + board.get(i).get(j).getFieldValue() + " ");
@@ -212,6 +216,6 @@ public class SudokuBoard {
             }
             k++;
         }
-    }
+    }*/
 
 }

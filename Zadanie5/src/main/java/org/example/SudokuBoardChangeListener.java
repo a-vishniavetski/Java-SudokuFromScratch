@@ -26,14 +26,15 @@ public class SudokuBoardChangeListener implements PropertyChangeListener {
             }
         }
 
-        SudokuField[][] newBoard = (SudokuField[][]) evt.getNewValue();
+        //SudokuField[][] newBoard = (SudokuField[][]) evt.getNewValue();
+        List<List<SudokuField>> newBoard = (List<List<SudokuField>>) evt.getNewValue();
 
         // wypisujemy każdy SudokuField który się zmienił
         for (int y = 0; y < 9; y++) {
             for (int x = 0; x < 9; x++) {
-                if (oldBoard.get(y).get(x).getFieldValue() != newBoard[y][x].getFieldValue()) {
+                if (oldBoard.get(y).get(x).getFieldValue() != newBoard.get(y).get(x).getFieldValue()) {
                     System.out.println("SudokuField[" + y + "][" + x + "] changed from "
-                            + oldBoard.get(y).get(x).getFieldValue() + " to " + newBoard[y][x].getFieldValue());
+                            + oldBoard.get(y).get(x).getFieldValue() + " to " + newBoard.get(y).get(x).getFieldValue());
                 }
             }
         }

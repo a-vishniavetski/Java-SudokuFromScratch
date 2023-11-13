@@ -7,8 +7,4 @@ public class SudokuBox extends SudokuElement {
         super(array);
     }
 
-    @Override
-    public boolean verify() {
-        return super.verify();
-    }
 }

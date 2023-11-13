@@ -1,9 +1,5 @@
 package org.example;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
 public class Main {
     public static void main(String[] args) {
         BacktrackingSudokuSolver backtrackingSudokuSolver = new BacktrackingSudokuSolver();
@@ -13,7 +9,8 @@ public class Main {
         board.addPropertyChangeListener(listener);
 
         board.solveGame();
-        board.printBoard();
+        //board.printBoard();
+
         //List<List<Integer>> lista = Arrays.asList(Arrays.asList(new Integer[9]));
         //lista.get(0).set(0, 1);
         /*
