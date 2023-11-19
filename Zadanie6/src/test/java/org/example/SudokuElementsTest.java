@@ -178,5 +178,43 @@ public class SudokuElementsTest {
         boolean result = element1.equals(element2);
         assertFalse(result);
     }
+
+    @Test
+    public void EqualsSameObjectTestEnd() {
+        // ten sam obiekt
+        List<SudokuField> fields = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) {
+            fields.set(i, new SudokuField(i));
+        }
+        SudokuElement element = new SudokuRow(fields);
+        boolean result = element.equals(element);
+        assertTrue(result);
+        assertEquals(element.hashCode(), element.hashCode()); // ten sam hashCode
+    }
+
+    @Test
+    public void EqualsNullTest() {
+        // null
+        List<SudokuField> fields = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) {
+            fields.set(i, new SudokuField(i));
+        }
+        SudokuElement element = new SudokuRow(fields);
+        boolean result = element.equals(null); // null
+        assertFalse(result);
+    }
+
+    @Test
+    public void EqualsDifferentClassTest() {
+        List<SudokuField> fields = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) {
+            fields.set(i, new SudokuField(i));
+        }
+        SudokuElement element = new SudokuRow(fields);
+        Object o = new Object(); // inna klasa
+
+        boolean result = element.equals(o);
+        assertFalse(result);
+    }
 }
 

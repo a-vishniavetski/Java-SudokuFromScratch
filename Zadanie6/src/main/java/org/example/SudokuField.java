@@ -2,8 +2,6 @@ package org.example;
 
 import java.util.Objects;
 
-import static junit.framework.Assert.assertEquals;
-
 public class SudokuField {
     int value;
 

@@ -56,11 +56,7 @@ abstract class SudokuElement {
             return false;
         }
 
-        // sprawdzamy hashCode
         SudokuElement comparedObject = (SudokuElement) o;
-        if (this.hashCode() != comparedObject.hashCode()) {
-            return false;
-        }
 
         // sprawdzamy czy wszystkie pola są takie same
         for (int i = 0; i < 9; i++) {

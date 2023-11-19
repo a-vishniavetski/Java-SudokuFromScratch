@@ -216,7 +216,14 @@ public class SudokuBoard {
 
         SudokuBoard brd = (SudokuBoard) obj;
 
-        return Objects.equals(board, brd.board);
+        // sprawdzamy czy wszystkie elementy są takie same
+        for (int i = 0; i < 9; i++) {
+            if (!board.get(i).equals(brd.board.get(i))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     //testowe funkcje

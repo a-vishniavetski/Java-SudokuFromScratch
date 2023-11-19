@@ -24,6 +24,9 @@ public class SudokuFieldTest {
         SudokuField field2 = new SudokuField(6); // inna wartość
         boolean result = field1.equals(field2);
         assertFalse(result);
+
+        // hashcode
+        assertNotEquals(field1.hashCode(), field2.hashCode());
     }
 
     @Test

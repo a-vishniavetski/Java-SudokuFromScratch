@@ -147,4 +147,98 @@ public class SudokuBoardTest {
 
         assertTrue(added_listeners.length == 0);
     }
+
+    @Test
+    public void ToStringTest() {
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(sudokuSolver);
+        board.solveGame();
+
+        assertNotNull(board.toString());
+    }
+
+    @Test
+    public void HashCodePositiveTest() {
+        // tworzymy dwie takie same plansze
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board1 = new SudokuBoard(sudokuSolver);
+        SudokuBoard board2 = new SudokuBoard(sudokuSolver);
+        assertEquals(board1.hashCode(), board2.hashCode());
+    }
+
+    @Test
+    public void HashCodeNegativeTest() {
+        // tworzymy dwie takie różne plansze
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board1 = new SudokuBoard(sudokuSolver);
+        SudokuBoard board2 = new SudokuBoard(sudokuSolver);
+        board1.solveGame();
+        board2.solveGame();
+
+        assertNotEquals(board1.hashCode(), board2.hashCode());
+    }
+
+    @Test
+    public void EqualsSameObjectTest() {
+        // ten sam obiekt
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(sudokuSolver);
+        board.solveGame();
+
+        boolean result = board.equals(board);
+        assertTrue(result);
+
+        assertEquals(board.hashCode(), board.hashCode()); // ten sam hashCode
+    }
+
+    @Test
+    public void EqualsNullTest() {
+        // null
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(sudokuSolver);
+        boolean result = board.equals(null);
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void EqualsDifferentClassTest() {
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(sudokuSolver);
+        Object o = new Object(); // inna klasa
+
+        boolean result = board.equals(o);
+        assertFalse(result);
+    }
+
+    @Test
+    public void NegativeEqualsTest() {
+        // różne plansze
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board1 = new SudokuBoard(sudokuSolver);
+        SudokuBoard board2 = new SudokuBoard(sudokuSolver);
+        board1.solveGame();
+        board2.solveGame();
+
+        boolean result = board1.equals(board2);
+        assertFalse(result);
+
+        // hashcode
+        assertNotEquals(board1.hashCode(), board2.hashCode());
+    }
+
+    @Test
+    public void EqualsPositiveTest() {
+        // tworzymy dwa obiekty SudokuBoard z takimi samymi wartościami SudokuField
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board1 = new SudokuBoard(sudokuSolver);
+        SudokuBoard board2 = new SudokuBoard(sudokuSolver);
+
+        // sprawdzamy czy equals zwraca true
+        boolean result = board1.equals(board2);
+        assertTrue(result);
+
+        // hashcode
+        assertEquals(board1.hashCode(), board2.hashCode());
+    }
 }
