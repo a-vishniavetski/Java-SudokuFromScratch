@@ -32,7 +32,7 @@ abstract class SudokuElement {
         builder.append("SudokuElement = {");
         for (int i = 0; i < 9; i++) {
             builder.append(array.get(i).getFieldValue());
-            if(i != 8) {
+            if (i != 8) {
                 builder.append(", ");
             }
         }
@@ -43,5 +43,32 @@ abstract class SudokuElement {
     @Override
     public int hashCode() {
         return Objects.hash(array);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        // ten samy adres w pamięci
+        if (this == o) {
+            return true;
+        }
+        // null lub różne klasy
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        // sprawdzamy hashCode
+        SudokuElement comparedObject = (SudokuElement) o;
+        if (this.hashCode() != comparedObject.hashCode()) {
+            return false;
+        }
+
+        // sprawdzamy czy wszystkie pola są takie same
+        for (int i = 0; i < 9; i++) {
+            if (array.get(i).getFieldValue() != comparedObject.array.get(i).getFieldValue()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

@@ -86,5 +86,97 @@ public class SudokuElementsTest {
             SudokuBox box = new SudokuBox(Arrays.asList(new SudokuField[9]));
         });
     }
+
+    @Test
+    public void ToStringTest() {
+        // tworzymy SudokuRow, bo SudokuElement to klasa abstrakcyjna
+        List<SudokuField> fields = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) {
+            fields.set(i, new SudokuField(i));
+        }
+        SudokuElement element = new SudokuRow(fields);
+
+        // sprawdzamy działanie metody toString
+        String expectedOutput = "SudokuElement = {0, 1, 2, 3, 4, 5, 6, 7, 8}";
+        assertEquals(expectedOutput, element.toString());
+    }
+
+    @Test
+    public void PositiveHashCodeTest() {
+        // tworzymy dwa obiekty SudokuRow z takimi samymi wartościami SudokuField
+        List<SudokuField> fields1 = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) {
+            fields1.set(i, new SudokuField(i));
+        }
+        SudokuElement element1 = new SudokuRow(fields1);
+
+        List<SudokuField> fields2 = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) {
+            fields2.set(i, new SudokuField(i));
+        }
+        SudokuElement element2 = new SudokuRow(fields2);
+
+        // sprawdzamy czy hashCode jest taki sam
+        assertEquals(element1.hashCode(), element2.hashCode());
+    }
+
+    @Test
+    public void NegativeHashCodeTest() {
+        // tworzymy dwa obiekty SudokuRow o różnych wartościach SudokuField
+        List<SudokuField> fields1 = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) {
+            fields1.set(i, new SudokuField(i));
+        }
+        SudokuElement element1 = new SudokuRow(fields1);
+
+        List<SudokuField> fields2 = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) {
+            fields2.set(i, new SudokuField(i + 1)); // inne wartości
+        }
+        SudokuElement element2 = new SudokuRow(fields2);
+
+        // sprawdzamy czy hashCode jest różny
+        assertNotEquals(element1.hashCode(), element2.hashCode());
+    }
+
+    @Test
+    public void PositiveEqualsTest() {
+        // tworzymy dwa obiekty SudokuRow z takimi samymi wartościami SudokuField
+        List<SudokuField> fields1 = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) {
+            fields1.set(i, new SudokuField(i));
+        }
+        SudokuElement element1 = new SudokuRow(fields1);
+
+        List<SudokuField> fields2 = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) {
+            fields2.set(i, new SudokuField(i));
+        }
+        SudokuElement element2 = new SudokuRow(fields2);
+
+        // sprawdzamy czy equals zwraca true
+        boolean result = element1.equals(element2);
+        assertTrue(result);
+    }
+
+    @Test
+    public void NegativeEqualsTest() {
+        // tworzymy dwa obiekty SudokuRow o różnych wartościach SudokuField
+        List<SudokuField> fields1 = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) {
+            fields1.set(i, new SudokuField(i));
+        }
+        SudokuElement element1 = new SudokuRow(fields1);
+
+        List<SudokuField> fields2 = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) {
+            fields2.set(i, new SudokuField(i + 1)); // inne wartości
+        }
+        SudokuElement element2 = new SudokuRow(fields2);
+
+        // sprawdzamy czy equals zwraca false
+        boolean result = element1.equals(element2);
+        assertFalse(result);
+    }
 }
 
