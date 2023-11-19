@@ -71,7 +71,7 @@ public class SudokuFieldTest {
     @Test
     public void ToStringTest() {
         SudokuField field = new SudokuField(5);
-        String expectedOutput = "SudokuField{value=5}";
+        String expectedOutput = "SudokuField = {5}";
         assertEquals(expectedOutput, field.toString());
     }
 

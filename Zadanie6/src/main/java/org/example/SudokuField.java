@@ -19,10 +19,11 @@ public class SudokuField {
 
     @Override
     public String toString() {
-        return "SudokuField{"
-                + "value="
-                + value
-                + '}';
+        StringBuilder builder = new StringBuilder();
+        builder.append("SudokuField = {");
+        builder.append(getFieldValue());
+        builder.append("}");
+        return builder.toString();
     }
 
     @Override
