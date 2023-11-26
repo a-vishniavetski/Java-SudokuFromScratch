@@ -27,7 +27,7 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
             objectOut.writeObject(obj);
             System.out.println("Object saved to " + path + " file.");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
