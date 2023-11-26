@@ -55,7 +55,7 @@
                 <version>0.8.10</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/*SudokuBoardChangeListener*</exclude>
+                        <exclude>**/SudokuBoardChangeListener.*</exclude>
                         <exclude>org/example/SudokuBoardChangeListener.java</exclude>
                     </excludes>
                 </configuration>
@@ -73,6 +73,7 @@
                         </goals>
                     </execution>
                 </executions>
+
             </plugin>
 
             <plugin>

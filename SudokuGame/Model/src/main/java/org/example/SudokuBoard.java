@@ -228,6 +228,7 @@ public class SudokuBoard implements Serializable {
     }
 
     //testowe funkcje
+    /*
     public void printBoard() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -236,7 +237,7 @@ public class SudokuBoard implements Serializable {
             System.out.println();
         }
     }
-    /*
+
     public void printRow(int y) {
         SudokuRow row = getRow(y);
         for (int i = 0; i < 9; i++) {
