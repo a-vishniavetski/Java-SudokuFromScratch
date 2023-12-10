@@ -257,7 +257,7 @@ public class SudokuBoard implements Serializable, Cloneable {
             // klonujemy sudokuFieldy
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < 9; j++) {
-                    clonedBoard.set(i, j, board.get(i).get(j).getFieldValue());
+                    clonedBoard.board.get(i).set(j, board.get(i).get(j).clone());
                 }
             }
 
