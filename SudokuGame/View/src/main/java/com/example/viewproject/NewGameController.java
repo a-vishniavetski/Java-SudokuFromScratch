@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.Difficulty;
 
@@ -19,23 +20,32 @@ import java.util.Objects;
 public class NewGameController {
     @FXML
     public Label difficultyText;
-    public Label chosenDifficultyText;
 
     @FXML
     public ToggleGroup difficultyToggleGroup;
     public Button newGameBtn;
+    public VBox newGameVbox;
+    public VBox radiosVbox;
+
+    public void init() {
+        for (Difficulty difficulty : Difficulty.values()) {
+            RadioButton r = new RadioButton();
+            r.setText(difficulty.toString());
+            r.setId(difficulty.name());
+            r.setToggleGroup(difficultyToggleGroup);
+            if (difficulty.name().equals(Difficulty.values()[0].name())) {
+                r.setSelected(true);
+            }
+            radiosVbox.getChildren().add(r);
+        }
+    }
 
     @FXML
     public void onStartGameBtnClick() {
         RadioButton radioButton = (RadioButton) difficultyToggleGroup.getSelectedToggle();
         System.out.println(radioButton.getId());
-        Difficulty diff = switch (radioButton.getId()) {
-            case "easy" -> Difficulty.EASY;
-            case "normal" -> Difficulty.NORMAL;
-            case "hard" -> Difficulty.HARD;
-            default -> Difficulty.NORMAL;
-        };
-        openGameWindow(diff);
+        Difficulty difficulty = Difficulty.valueOf(radioButton.getId());
+        openGameWindow(difficulty);
     }
 
     public void openGameWindow(Difficulty diff) {

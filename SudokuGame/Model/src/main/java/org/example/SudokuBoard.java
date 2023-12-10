@@ -185,11 +185,7 @@ public class SudokuBoard implements Serializable, Cloneable {
     }
 
     public void clearRandomFields(Difficulty difficulty) {
-        int count = switch (difficulty) {
-            case EASY -> 5;
-            case NORMAL -> 10;
-            case HARD -> 15;
-        };
+        int count = difficulty.getFieldsToErase();
         Random random = new Random();
         for (int i = 0; i < count; i++) {
             while (true) {

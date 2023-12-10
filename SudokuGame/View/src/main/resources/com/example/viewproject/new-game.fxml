@@ -8,7 +8,7 @@
 
 <?import javafx.geometry.Insets?>
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.viewproject.NewGameController">
+      fx:controller="com.example.viewproject.NewGameController" fx:id="newGameVbox">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
@@ -21,9 +21,9 @@
         <ToggleGroup fx:id="difficultyToggleGroup"/>
     </fx:define>
 
-    <RadioButton text="Łatwy" fx:id="easy" toggleGroup="$difficultyToggleGroup" selected="true"/>
-    <RadioButton text="Normalny" fx:id="normal" toggleGroup="$difficultyToggleGroup"/>
-    <RadioButton text="Trudny" fx:id="hard" toggleGroup="$difficultyToggleGroup"/>
+    <VBox fx:id="radiosVbox" alignment="CENTER" spacing="20.0">
+
+    </VBox>
 
     <Button fx:id="newGameBtn" text="Start" onAction="#onStartGameBtnClick"/>
 

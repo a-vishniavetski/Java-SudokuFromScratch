@@ -33,7 +33,7 @@ public class GameWindowController {
     public void initialize() {}
     public void initData(Difficulty difficulty) {
         this.difficulty = difficulty;
-        difficultyText.setText(difficulty.name());
+        difficultyText.setText(difficulty.toString());
 
         sudokuBoardGrid.setAlignment(Pos.CENTER);
 
