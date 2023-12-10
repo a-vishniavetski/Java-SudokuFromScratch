@@ -21,9 +21,9 @@
         <ToggleGroup fx:id="difficultyToggleGroup"/>
     </fx:define>
 
-    <RadioButton text="Łatwy" fx:id="easy" toggleGroup="$difficultyToggleGroup" onAction="#onSelectDifficulty" selected="true"/>
-    <RadioButton text="Normalny" fx:id="normal" toggleGroup="$difficultyToggleGroup" onAction="#onSelectDifficulty"/>
-    <RadioButton text="Trudny" fx:id="hard" toggleGroup="$difficultyToggleGroup" onAction="#onSelectDifficulty"/>
+    <RadioButton text="Łatwy" fx:id="easy" toggleGroup="$difficultyToggleGroup" selected="true"/>
+    <RadioButton text="Normalny" fx:id="normal" toggleGroup="$difficultyToggleGroup"/>
+    <RadioButton text="Trudny" fx:id="hard" toggleGroup="$difficultyToggleGroup"/>
 
     <Button fx:id="newGameBtn" text="Start" onAction="#onStartGameBtnClick"/>
 

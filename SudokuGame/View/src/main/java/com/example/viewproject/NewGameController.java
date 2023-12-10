@@ -38,21 +38,16 @@ public class NewGameController {
         openGameWindow(diff);
     }
 
-    @FXML
-    public void onSelectDifficulty() {
-        RadioButton radioButton = (RadioButton) difficultyToggleGroup.getSelectedToggle();
-//        chosenDifficultyText.setText("Wybrany poziom trudności: " + radioButton.getText());
-    }
-
     public void openGameWindow(Difficulty diff) {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("game-window.fxml"));
             Stage stage = new Stage();
-            stage.setTitle("My New Stage Title");
+            stage.setTitle("Gra Sudoku - " + diff.toString());
             Scene scene = new Scene(loader.load(), 600, 500);
             stage.setScene(scene);
             GameWindowController controller = loader.getController();
             controller.initData(diff);
+            stage.setResizable(false);
             stage.show();
 
             Stage newGameWindow = (Stage) newGameBtn.getScene().getWindow();
