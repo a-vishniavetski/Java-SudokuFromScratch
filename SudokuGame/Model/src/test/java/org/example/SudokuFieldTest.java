@@ -75,4 +75,58 @@ public class SudokuFieldTest {
         assertEquals(expectedOutput, field.toString());
     }
 
+    @Test
+    public void SmallerCompareToTest() {
+        SudokuField field1 = new SudokuField(5);
+        SudokuField field2 = new SudokuField(6);
+
+        // field1 jest mniejszy od field2, więc compareTo zwraca -1
+        int result = field1.compareTo(field2);
+        assertEquals(-1, result);
+    }
+
+    @Test
+    public void BiggerCompareToTest() {
+        SudokuField field1 = new SudokuField(5);
+        SudokuField field2 = new SudokuField(6);
+
+        // field2 jest większy od field1, więc compareTo zwraca 1
+        int result = field2.compareTo(field1);
+        assertEquals(1, result);
+    }
+
+    @Test
+    public void EqualCompareToTest() {
+        SudokuField field1 = new SudokuField(5);
+        SudokuField field2 = new SudokuField(5);
+
+        // field1 jest równy field2, więc compareTo zwraca 0
+        int result = field1.compareTo(field2);
+        assertEquals(0, result);
+    }
+
+    @Test
+    public void NullCompareToTest() {
+        SudokuField field = new SudokuField(5);
+        SudokuField nullField = null;
+
+        // compareTo zwraca wyjątek NullPointerException
+        assertThrows(NullPointerException.class, () -> {
+            field.compareTo(nullField);
+        });
+    }
+
+    @Test
+    public void CloneTest() {
+        SudokuField field1 = new SudokuField(5);
+        SudokuField field2 = null;
+
+        try {
+            field2 = field1.clone();
+        } catch (CloneNotSupportedException e) {
+            fail("Clone not supported");
+        }
+
+        assertEquals(field1, field2);
+    }
 }
