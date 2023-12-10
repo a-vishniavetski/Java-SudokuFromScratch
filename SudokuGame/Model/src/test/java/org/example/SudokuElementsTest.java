@@ -216,5 +216,118 @@ public class SudokuElementsTest {
         boolean result = element.equals(o);
         assertFalse(result);
     }
+
+    // --------- CLONE TESTY ---------
+    @Test
+    public void PositiveRowCloneTest() {
+        // tworzymy obiekt SudokuRow
+        List<SudokuField> fields = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) {
+            fields.set(i, new SudokuField(i));
+        }
+        SudokuElement element = new SudokuRow(fields);
+
+        // klonujemy obiekt
+        SudokuElement clonedElement = element.clone();
+
+        // sprawdzamy czy wartości PÓL są takie same
+        assertEquals(element, clonedElement);
+    }
+
+    // sprawdzamy czy robimy DeepCopy czy ShallowCopy, czyli czy tworzymy nowe obiekty czy używamy ich referencji
+    @Test
+    public void ReferenceRowCloneTest() {
+        // tworzymy obiekt SudokuRow
+        List<SudokuField> fields = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) {
+            fields.set(i, new SudokuField(i));
+        }
+        SudokuElement element = new SudokuRow(fields);
+
+        // klonujemy obiekt
+        SudokuElement clonedElement = element.clone();
+
+        // zmieniamy sklonowany obiekt
+        clonedElement.array.set(0, new SudokuField(5));
+        clonedElement.array.set(1, new SudokuField(5));
+
+        // sprawdzamy czy zmienił się oryginał
+        assertNotEquals(element, clonedElement);
+    }
+
+    @Test
+    public void PositiveBoxCloneTest() {
+        // tworzymy obiekt SudokuBox
+        List<SudokuField> fields = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) {
+            fields.set(i, new SudokuField(i));
+        }
+        SudokuElement element = new SudokuBox(fields);
+
+        // klonujemy obiekt
+        SudokuElement clonedElement = element.clone();
+
+        // sprawdzamy czy wartości PÓL są takie same
+        assertEquals(element, clonedElement);
+    }
+
+    // sprawdzamy czy robimy DeepCopy czy ShallowCopy, czyli czy tworzymy nowe obiekty czy używamy ich referencji
+    @Test
+    public void ReferenceBoxCloneTest() {
+        // tworzymy obiekt SudokuBox
+        List<SudokuField> fields = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) {
+            fields.set(i, new SudokuField(i));
+        }
+        SudokuElement element = new SudokuBox(fields);
+
+        // klonujemy obiekt
+        SudokuElement clonedElement = element.clone();
+
+        // zmieniamy sklonowany obiekt
+        clonedElement.array.set(0, new SudokuField(5));
+        clonedElement.array.set(1, new SudokuField(5));
+
+        // sprawdzamy czy zmienił się oryginał
+        assertNotEquals(element, clonedElement);
+    }
+
+    // sprawdzamy czy robimy DeepCopy czy ShallowCopy, czyli czy tworzymy nowe obiekty czy używamy ich referencji
+    @Test
+    public void PositiveColumnCloneTest() {
+        // tworzymy obiekt SudokuColumn
+        List<SudokuField> fields = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) { // wypełniamy SudokuField
+            fields.set(i, new SudokuField(i));
+        }
+        SudokuElement element = new SudokuColumn(fields);
+
+        // klonujemy obiekt
+        SudokuElement clonedElement = element.clone();
+
+        // sprawdzamy czy wartości PÓL są takie same
+        assertEquals(element, clonedElement);
+    }
+
+    // sprawdzamy czy robimy DeepCopy czy ShallowCopy, czyli czy tworzymy nowe obiekty czy używamy ich referencji
+    @Test
+    public void ReferenceColumnCloneTest() {
+        // tworzymy obiekt SudokuColumn
+        List<SudokuField> fields = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) { // wypełniamy SudokuField
+            fields.set(i, new SudokuField(i));
+        }
+        SudokuElement element = new SudokuColumn(fields);
+
+        // klonujemy obiekt
+        SudokuElement clonedElement = element.clone();
+
+        // zmieniamy sklonowany obiekt
+        clonedElement.array.set(0, new SudokuField(5));
+        clonedElement.array.set(1, new SudokuField(5));
+
+        // sprawdzamy czy zmienił się oryginał
+        assertNotEquals(element, clonedElement);
+    }
 }
 

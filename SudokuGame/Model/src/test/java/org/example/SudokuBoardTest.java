@@ -241,4 +241,147 @@ public class SudokuBoardTest {
         // hashcode
         assertEquals(board1.hashCode(), board2.hashCode());
     }
+
+    @Test
+    public void PositiveCloneTest() {
+        // tworzymy obiekt
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(sudokuSolver);
+        board.solveGame();
+
+        // klonujemy
+        SudokuBoard clonedBoard = null;
+        try {
+            clonedBoard = board.clone();
+        } catch (CloneNotSupportedException e) {
+            fail("CloneNotSupportedException");
+        }
+
+        // sprawdzamy czy są takie same
+        assertEquals(board, clonedBoard);
+
+        // sprawdzamy czy nie są tym samym obiektem
+        assertNotSame(board, clonedBoard);
+
+        // sprawdzamy czy mają takie same hashe
+        assertEquals(board.hashCode(), clonedBoard.hashCode());
+    }
+
+    // sprawdzamy czy robimy DeepCopy czy ShallowCopy, czyli czy tworzymy nowe obiekty czy używamy ich referencji
+    @Test
+    public void ReferenceCloneTest() {
+        // tworzymy obiekt
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(sudokuSolver);
+        board.solveGame();
+
+        // klonujemy
+        SudokuBoard clonedBoard = null;
+        try {
+            clonedBoard = board.clone();
+        } catch (CloneNotSupportedException e) {
+            fail("CloneNotSupportedException");
+        }
+
+        // zmieniamy skopiowany obiekt
+        clonedBoard.set(0, 0, 5);
+        clonedBoard.set(0, 1, 5);
+        clonedBoard.set(0, 2, 5);
+
+        // sprawdzamy czy zmienił się oryginał
+        assertNotEquals(board, clonedBoard);
+    }
+
+    @Test
+    public void ClearRandomFieldsEasyTest() {
+        // tworzymy obiekt
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(sudokuSolver);
+        board.solveGame();
+
+        // EASY
+        board.clearRandomFields(Difficulty.EASY);
+
+        // sprawdzamy czy są 5 pól pustych
+        int emptyFields = 0;
+        for (int i = 0; i < 9; i++) {
+            SudokuRow row = board.getRow(i);
+            for (int j = 0; j < 9; j++) {
+                if (row.array.get(j).getFieldValue() == 0) {
+                    emptyFields++;
+                }
+            }
+        }
+
+        assertEquals(5, emptyFields);
+    }
+
+    @Test
+    public void ClearRandomFieldsNormalTest() {
+        // tworzymy obiekt
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(sudokuSolver);
+        board.solveGame();
+
+        // NORMAL
+        board.clearRandomFields(Difficulty.NORMAL);
+
+        // sprawdzamy czy są 10 pól pustych
+        int emptyFields = 0;
+        for (int i = 0; i < 9; i++) {
+            SudokuRow row = board.getRow(i);
+            for (int j = 0; j < 9; j++) {
+                if (row.array.get(j).getFieldValue() == 0) {
+                    emptyFields++;
+                }
+            }
+        }
+
+        assertEquals(10, emptyFields);
+    }
+
+    @Test
+    public void ClearRandomFieldsHardTest() {
+        // tworzymy obiekt
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(sudokuSolver);
+        board.solveGame();
+
+        // NORMAL
+        board.clearRandomFields(Difficulty.HARD);
+
+        // sprawdzamy czy są 15 pól pustych
+        int emptyFields = 0;
+        for (int i = 0; i < 9; i++) {
+            SudokuRow row = board.getRow(i);
+            for (int j = 0; j < 9; j++) {
+                if (row.array.get(j).getFieldValue() == 0) {
+                    emptyFields++;
+                }
+            }
+        }
+
+        assertEquals(15, emptyFields);
+    }
+
+    @Test
+    public void ClearRandomFieldsDefaultTest() {
+        // tworzymy obiekt
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(sudokuSolver);
+        board.solveGame();
+
+        // sprawdzamy czy są 0 pól pustych
+        int emptyFields = 0;
+        for (int i = 0; i < 9; i++) {
+            SudokuRow row = board.getRow(i);
+            for (int j = 0; j < 9; j++) {
+                if (row.array.get(j).getFieldValue() == 0) {
+                    emptyFields++;
+                }
+            }
+        }
+
+        assertEquals(0, emptyFields);
+    }
 }

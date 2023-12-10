@@ -4,12 +4,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class BacktrackingSudokuSolver implements SudokuSolver, Serializable {
+public class BacktrackingSudokuSolver implements SudokuSolver, Serializable, Cloneable {
 
     private SudokuBoard board;
 
     public BacktrackingSudokuSolver() {
 
+    }
+
+    @Override
+    public BacktrackingSudokuSolver clone() throws CloneNotSupportedException {
+        return (BacktrackingSudokuSolver) super.clone();
     }
 
     @Override

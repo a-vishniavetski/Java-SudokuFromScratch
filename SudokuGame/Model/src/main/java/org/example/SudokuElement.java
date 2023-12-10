@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.*;
 
-abstract class SudokuElement implements Cloneable{
+abstract class SudokuElement implements Cloneable {
 
     //public SudokuField[] array = new SudokuField[9];
     public List<SudokuField> array = Arrays.asList(new SudokuField[9]);
@@ -71,8 +71,18 @@ abstract class SudokuElement implements Cloneable{
     @Override
     public SudokuElement clone() {
         try {
-            // TODO: copy mutable state here, so the clone can't change the internals of the original
-            return (SudokuElement) super.clone();
+            // towrzymy nowy array i kopiujemy do niego wszystkie pola
+            List<SudokuField> clonedArray = Arrays.asList(new SudokuField[9]);
+            for (int i = 0; i < 9; i++) {
+                SudokuField thisObjectField = array.get(i);
+                clonedArray.set(i, thisObjectField.clone());
+            }
+
+            // klonujemy obiekt i ustawiamy mu nowy array
+            SudokuElement clonedObject = (SudokuElement) super.clone();
+            clonedObject.array = clonedArray;
+            return clonedObject;
+
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
