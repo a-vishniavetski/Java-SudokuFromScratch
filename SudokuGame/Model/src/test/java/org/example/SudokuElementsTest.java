@@ -38,7 +38,6 @@ public class SudokuElementsTest {
         assertTrue(BoxElement.verify());
     }
 
-
     // negatywna nest metody verify dla SudokuRow, SudokuColumn i SudokuBox
     @Test
     public void NegativeVerifyTest() {
