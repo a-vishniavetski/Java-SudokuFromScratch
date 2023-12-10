@@ -3,7 +3,7 @@ package org.example;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class SudokuField implements Serializable {
+public class SudokuField implements Serializable, Cloneable, Comparable<SudokuField> {
     int value;
 
     public SudokuField(int value) {
@@ -45,4 +45,8 @@ public class SudokuField implements Serializable {
         return value == comparedObject.value;
     }
 
+    @Override
+    public int compareTo(SudokuField o) {
+        return 0;
+    }
 }

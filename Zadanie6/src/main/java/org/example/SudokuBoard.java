@@ -226,6 +226,8 @@ public class SudokuBoard {
         return true;
     }
 
+
+
     //testowe funkcje
     /*public void printBoard() {
         for (int i = 0; i < 9; i++) {

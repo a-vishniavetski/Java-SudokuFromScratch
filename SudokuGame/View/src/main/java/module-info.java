@@ -1,11 +1,7 @@
 module com.example.viewproject {
     requires javafx.controls;
     requires javafx.fxml;
-
-    requires org.controlsfx.controls;
-    requires com.dlsc.formsfx;
-    requires org.kordamp.bootstrapfx.core;
-
+    requires Model;
     opens com.example.viewproject to javafx.fxml;
     exports com.example.viewproject;
 }

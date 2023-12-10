@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.viewproject.GameWindowController">
+
+    <Label fx:id="difficultyText"/>
+
+    <fx:define>
+        <Group fx:id="sudokuBoard"/>
+    </fx:define>
+
+    <GridPane fx:id="sudokuBoardGrid">
+        <TextField fx:id="0_0" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="0_1" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <TextField fx:id="0_2" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+        <TextField fx:id="0_3" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+        <TextField fx:id="0_4" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
+        <TextField fx:id="0_5" GridPane.rowIndex="0" GridPane.columnIndex="5"/>
+        <TextField fx:id="0_6" GridPane.rowIndex="0" GridPane.columnIndex="6"/>
+        <TextField fx:id="0_7" GridPane.rowIndex="0" GridPane.columnIndex="7"/>
+        <TextField fx:id="0_8" GridPane.rowIndex="0" GridPane.columnIndex="8"/>
+
+        <TextField fx:id="1_0" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="1_1" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <TextField fx:id="1_2" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+        <TextField fx:id="1_3" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+        <TextField fx:id="1_4" GridPane.rowIndex="1" GridPane.columnIndex="4"/>
+        <TextField fx:id="1_5" GridPane.rowIndex="1" GridPane.columnIndex="5"/>
+        <TextField fx:id="1_6" GridPane.rowIndex="1" GridPane.columnIndex="6"/>
+        <TextField fx:id="1_7" GridPane.rowIndex="1" GridPane.columnIndex="7"/>
+        <TextField fx:id="1_8" GridPane.rowIndex="1" GridPane.columnIndex="8"/>
+
+
+    </GridPane>
+
+</VBox>

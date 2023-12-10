@@ -6,8 +6,9 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
-public class SudokuBoard implements Serializable {
+public class SudokuBoard implements Serializable, Cloneable {
 
     //Deklaracja zmiennej board o wymiarach 9 x 9
     //Zrodlo fixed listy
@@ -183,6 +184,21 @@ public class SudokuBoard implements Serializable {
         propertyChangeSupport.firePropertyChange("board", oldBoard, board);
     }
 
+    public void clearRandomFields(Difficulty difficulty) {
+        int count = switch (difficulty) {
+            case EASY -> 5;
+            case NORMAL -> 10;
+            case HARD -> 15;
+            default -> 0;
+        };
+        Random random = new Random();
+        for (int i = 0; i < count; i++) {
+            int x = random.nextInt(0, 9);
+            int y = random.nextInt(0, 9);
+            set(x, y, 0);
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -225,6 +241,17 @@ public class SudokuBoard implements Serializable {
         }
 
         return true;
+    }
+
+    @Override
+    public SudokuBoard clone() {
+        try {
+            SudokuBoard clone = (SudokuBoard) super.clone();
+            // TODO: copy mutable state here, so the clone can't change the internals of the original
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 
     //testowe funkcje
