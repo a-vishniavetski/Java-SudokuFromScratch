@@ -16,10 +16,14 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 public class App extends Application {
+
+    Locale currentLocale = new Locale("pl", "PL");
     @Override
     public void start(Stage stage) throws IOException {
         //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("new-game.fxml"));
-        Locale currentLocale = new Locale("en", "US");
+
+        // WYBOR LOKALIZACJI DLA CALEJ APLIKACJI
+        currentLocale = new Locale("pl", "PL");
         ResourceBundle bundle = ResourceBundle.getBundle("com.example.viewproject.lang", currentLocale);
 
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("new-game.fxml"), bundle);
@@ -30,7 +34,8 @@ public class App extends Application {
         controller.currentLocale = currentLocale;
 
         controller.init();
-        stage.setTitle("Sudoku Game");
+        String localizedTitle = bundle.getString("gameTitle");
+        stage.setTitle(localizedTitle);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();

@@ -18,6 +18,9 @@ import org.example.Difficulty;
 import org.example.SudokuBoard;
 import org.example.SudokuSolver;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 public class GameWindowController {
     @FXML
     public Label difficultyText;
@@ -26,14 +29,18 @@ public class GameWindowController {
 
     public GridPane sudokuBoardGrid;
 
+    public Locale currentLocale = Locale.getDefault();
+
     BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
 
     SudokuBoard board = new SudokuBoard(solver);
 
     public void initialize() {}
     public void initData(Difficulty difficulty) {
+        ResourceBundle bundle = ResourceBundle.getBundle("com.example.viewproject.lang", currentLocale);
         this.difficulty = difficulty;
-        difficultyText.setText(difficulty.toString());
+        String localizedDifficulty = bundle.getString(difficulty.name());
+        difficultyText.setText(localizedDifficulty);
 
         sudokuBoardGrid.setAlignment(Pos.CENTER);
 

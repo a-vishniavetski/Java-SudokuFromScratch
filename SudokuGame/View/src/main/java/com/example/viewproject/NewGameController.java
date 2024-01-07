@@ -29,7 +29,7 @@ public class NewGameController {
     public VBox newGameVbox;
     public VBox radiosVbox;
 
-    public Locale currentLocale;
+    public Locale currentLocale = Locale.getDefault();
 
     public void init() {
         ResourceBundle bundle = ResourceBundle.getBundle("com.example.viewproject.lang", currentLocale);
@@ -58,12 +58,17 @@ public class NewGameController {
     public void openGameWindow(Difficulty diff) {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("game-window.fxml"));
+            ResourceBundle bundle = ResourceBundle.getBundle("com.example.viewproject.lang", currentLocale);
 
             Stage stage = new Stage();
-            stage.setTitle("Gra Sudoku - " + diff.toString());
+
+            String localizedTitle = bundle.getString("gameTitle");
+            String localizedDifficulty = bundle.getString(diff.name());
+            stage.setTitle(localizedTitle + ": " + localizedDifficulty);
             Scene scene = new Scene(loader.load(), 600, 500);
             stage.setScene(scene);
             GameWindowController controller = loader.getController();
+            controller.currentLocale = currentLocale;
             controller.initData(diff);
             stage.setResizable(false);
             stage.show();
