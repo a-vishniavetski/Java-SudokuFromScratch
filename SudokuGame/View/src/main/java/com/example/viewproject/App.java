@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.LogManager;
 
 public class App extends Application {
 
@@ -40,6 +41,13 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        // LOGGING
+        try {
+            LogManager.getLogManager().readConfiguration(App.class.getResourceAsStream("/logging.properties"));
+        } catch (IOException e) {
+            System.err.println("Could not setup logger configuration: " + e.toString());
+        }
+
         launch();
     }
 }

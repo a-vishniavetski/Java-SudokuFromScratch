@@ -2,9 +2,12 @@ package org.example;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class FileSudokuBoardDao implements Dao<SudokuBoard> {
-
+    
+    // LOGGING
+    private static final Logger BoardDaoLogger = Logger.getLogger(FileSudokuBoardDao.class.getName());
     private String path = "saved_board";
 
     public FileSudokuBoardDao(String path) {
@@ -26,7 +29,7 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
         try (FileOutputStream fileOut = new FileOutputStream(path);
              ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
             objectOut.writeObject(obj);
-            System.out.println("Object saved to " + path + " file.");
+            BoardDaoLogger.info("Object saved to " + path + " file.");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -39,7 +42,7 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
             boards.add(obj);
             boards.add(obj2);
             objectOut.writeObject(boards);
-            System.out.println("Objects saved to " + path + " file.");
+            BoardDaoLogger.info("Objects saved to " + path + " file.");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -56,6 +59,6 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
 
     @Override
     public void close() throws Exception {
-        System.out.println("Dao closed");
+        BoardDaoLogger.info("Dao closed");
     }
 }

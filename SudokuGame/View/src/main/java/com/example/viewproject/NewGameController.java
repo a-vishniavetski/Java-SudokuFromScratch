@@ -20,6 +20,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import java.util.logging.Logger;
+
 public class NewGameController {
     @FXML
     public Label difficultyText;
@@ -53,6 +55,9 @@ public class NewGameController {
     public Label authorsText;
 
     Stage primaryStage;
+
+    // LOGGING
+    private static final Logger FRONT_END_LOGGER = Logger.getLogger(NewGameController.class.getName());
 
     public void init(Stage primaryStage) {
         ResourceBundle bundle = ResourceBundle.getBundle("com.example.viewproject.lang", currentLocale);
@@ -121,7 +126,7 @@ public class NewGameController {
     @FXML
     public void onStartGameBtnClick() {
         RadioButton radioButton = (RadioButton) difficultyToggleGroup.getSelectedToggle();
-        System.out.println(radioButton.getId());
+        FRONT_END_LOGGER.info(radioButton.getId());
         Difficulty difficulty = Difficulty.valueOf(radioButton.getId());
         openGameWindow(difficulty);
     }
@@ -161,7 +166,7 @@ public class NewGameController {
                 currentLocale = Locale.US;
                 break;
         }
-        System.out.println(currentLocale);
+        FRONT_END_LOGGER.info(String.valueOf(currentLocale));
         updateLabels();
     }
 
