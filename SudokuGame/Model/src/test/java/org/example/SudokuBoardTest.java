@@ -302,54 +302,6 @@ public class SudokuBoardTest {
         // EASY
         board.clearRandomFields(Difficulty.EASY);
 
-        // sprawdzamy czy są 5 pól pustych
-        int emptyFields = 0;
-        for (int i = 0; i < 9; i++) {
-            SudokuRow row = board.getRow(i);
-            for (int j = 0; j < 9; j++) {
-                if (row.array.get(j).getFieldValue() == 0) {
-                    emptyFields++;
-                }
-            }
-        }
-
-        assertEquals(5, emptyFields);
-    }
-
-    @Test
-    public void ClearRandomFieldsNormalTest() {
-        // tworzymy obiekt
-        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
-        SudokuBoard board = new SudokuBoard(sudokuSolver);
-        board.solveGame();
-
-        // NORMAL
-        board.clearRandomFields(Difficulty.NORMAL);
-
-        // sprawdzamy czy są 10 pól pustych
-        int emptyFields = 0;
-        for (int i = 0; i < 9; i++) {
-            SudokuRow row = board.getRow(i);
-            for (int j = 0; j < 9; j++) {
-                if (row.array.get(j).getFieldValue() == 0) {
-                    emptyFields++;
-                }
-            }
-        }
-
-        assertEquals(10, emptyFields);
-    }
-
-    @Test
-    public void ClearRandomFieldsHardTest() {
-        // tworzymy obiekt
-        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
-        SudokuBoard board = new SudokuBoard(sudokuSolver);
-        board.solveGame();
-
-        // NORMAL
-        board.clearRandomFields(Difficulty.HARD);
-
         // sprawdzamy czy są 15 pól pustych
         int emptyFields = 0;
         for (int i = 0; i < 9; i++) {
@@ -362,6 +314,54 @@ public class SudokuBoardTest {
         }
 
         assertEquals(15, emptyFields);
+    }
+
+    @Test
+    public void ClearRandomFieldsNormalTest() {
+        // tworzymy obiekt
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(sudokuSolver);
+        board.solveGame();
+
+        // NORMAL
+        board.clearRandomFields(Difficulty.NORMAL);
+
+        // sprawdzamy czy są 25 pól pustych
+        int emptyFields = 0;
+        for (int i = 0; i < 9; i++) {
+            SudokuRow row = board.getRow(i);
+            for (int j = 0; j < 9; j++) {
+                if (row.array.get(j).getFieldValue() == 0) {
+                    emptyFields++;
+                }
+            }
+        }
+
+        assertEquals(25, emptyFields);
+    }
+
+    @Test
+    public void ClearRandomFieldsHardTest() {
+        // tworzymy obiekt
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(sudokuSolver);
+        board.solveGame();
+
+        // NORMAL
+        board.clearRandomFields(Difficulty.HARD);
+
+        // sprawdzamy czy są 35 pól pustych
+        int emptyFields = 0;
+        for (int i = 0; i < 9; i++) {
+            SudokuRow row = board.getRow(i);
+            for (int j = 0; j < 9; j++) {
+                if (row.array.get(j).getFieldValue() == 0) {
+                    emptyFields++;
+                }
+            }
+        }
+
+        assertEquals(35, emptyFields);
     }
 
     @Test

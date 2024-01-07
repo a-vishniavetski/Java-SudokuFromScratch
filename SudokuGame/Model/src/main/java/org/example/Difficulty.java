@@ -20,7 +20,7 @@ public enum Difficulty {
         };
     }
 
-    private Difficulty(int value) {
+    Difficulty(int value) {
         this.value = value;
     }
 }

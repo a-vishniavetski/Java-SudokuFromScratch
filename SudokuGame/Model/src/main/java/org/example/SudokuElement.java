@@ -1,8 +1,14 @@
 package org.example;
 
 import java.util.*;
+import java.util.logging.Logger;
+
+import static java.lang.System.exit;
 
 abstract class SudokuElement implements Cloneable {
+
+    //LOGGING
+    private static final Logger ElementLogger = Logger.getLogger(SudokuElement.class.getName());
 
     //public SudokuField[] array = new SudokuField[9];
     public List<SudokuField> array = Arrays.asList(new SudokuField[9]);
@@ -84,7 +90,13 @@ abstract class SudokuElement implements Cloneable {
             return clonedObject;
 
         } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
+            try {
+                throw new SudokuCloneException("CloneError", e);
+            } catch (SudokuCloneException ex) {
+                ElementLogger.info(ex.getMessage());
+                exit(1);
+            }
         }
+        return null;
     }
 }

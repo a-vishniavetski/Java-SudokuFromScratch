@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.logging.Logger;
+
+import static java.lang.System.exit;
 
 public class SudokuBoard implements Serializable, Cloneable {
 
@@ -35,6 +38,9 @@ public class SudokuBoard implements Serializable, Cloneable {
 
         this.sudokuSolver = sudokuSolver;
     }
+
+    // Logging
+    private static final Logger BoardLogger = Logger.getLogger(SudokuBoard.class.getName());
 
     public void solveGame() {
         // oczyszcamy tablicę
@@ -259,8 +265,14 @@ public class SudokuBoard implements Serializable, Cloneable {
 
             return clonedBoard;
         } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
+            try {
+                throw new SudokuCloneException("CloneError", e);
+            } catch (SudokuCloneException ex) {
+                BoardLogger.info(ex.getMessage());
+                exit(1);
+            }
         }
+        return null;
     }
 
     //testowe funkcje

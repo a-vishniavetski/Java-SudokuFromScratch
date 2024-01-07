@@ -9,15 +9,15 @@ public class DifficultyTest {
         public void getFieldsToEraseTest() {
             Difficulty difficulty = Difficulty.EASY;
             int result = difficulty.getFieldsToErase();
-            assertEquals(5, result);
+            assertEquals(15, result);
 
             difficulty = Difficulty.NORMAL;
             result = difficulty.getFieldsToErase();
-            assertEquals(10, result);
+            assertEquals(25, result);
 
             difficulty = Difficulty.HARD;
             result = difficulty.getFieldsToErase();
-            assertEquals(15, result);
+            assertEquals(35, result);
         }
 
         @Test

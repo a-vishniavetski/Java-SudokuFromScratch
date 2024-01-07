@@ -12,6 +12,7 @@ public class SudokuBoardChangeListener implements PropertyChangeListener, Serial
     
     //LOGGING
     private static final Logger BoardChangeListenerLogger = Logger.getLogger(SudokuBoardChangeListener.class.getName());
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         BoardChangeListenerLogger.info("\nSudokuBoardChangeListener: ");

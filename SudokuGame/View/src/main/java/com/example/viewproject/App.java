@@ -4,15 +4,22 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.SudokuIOexception;
+
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 public class App extends Application {
 
     Locale currentLocale = new Locale("pl", "PL");
     Stage STAGE;
+
+    // LOGGING
+    private static final Logger Logger = java.util.logging.Logger.getLogger(App.class.getName());
+
     @Override
     public void start(Stage stage) throws IOException {
         //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("new-game.fxml"));
@@ -45,7 +52,12 @@ public class App extends Application {
         try {
             LogManager.getLogManager().readConfiguration(App.class.getResourceAsStream("/logging.properties"));
         } catch (IOException e) {
-            System.err.println("Could not setup logger configuration: " + e.toString());
+            try {
+                throw new SudokuIOexception("IOError", e);
+            } catch (SudokuIOexception ex) {
+                Logger.info(ex.getMessage());
+                System.exit(1);
+            }
         }
 
         launch();

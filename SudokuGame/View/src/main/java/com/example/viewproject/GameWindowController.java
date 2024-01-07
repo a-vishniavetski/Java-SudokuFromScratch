@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.logging.Logger;
+
+import static java.lang.System.exit;
 
 public class GameWindowController {
     @FXML
@@ -36,12 +39,23 @@ public class GameWindowController {
 
     SudokuBoard board = new SudokuBoard(solver);
 
+    // Logging
+    private static final Logger Logger = java.util.logging.Logger.getLogger(GameWindowController.class.getName());
+
     public void initialize() {
         saveBoardBtn.setOnMouseClicked(mouseEvent -> {
-            saveBoard();
+            try {
+                saveBoard();
+            } catch (SudokuWriteException e) {
+                Logger.info(e.getMessage());
+            }
         });
         loadBoardBtn.setOnMouseClicked(mouseEvent -> {
-            loadBoard();
+            try {
+                loadBoard();
+            } catch (SudokuReadException e) {
+                Logger.info(e.getMessage());
+            }
         });
     }
     public void initData(Difficulty difficulty) {
@@ -67,7 +81,12 @@ public class GameWindowController {
         try {
             primalBoard = board.clone();
         } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
+            try {
+                throw new SudokuCloneException("CloneError", e);
+            } catch (SudokuCloneException ex) {
+                Logger.info(ex.getMessage());
+                exit(1);
+            }
         }
 
         for (int x = 0; x < 9; x++) {
@@ -110,15 +129,15 @@ public class GameWindowController {
         }
     }
 
-    public void saveBoard() {
+    public void saveBoard() throws SudokuWriteException {
         try (FileSudokuBoardDao dao = new FileSudokuBoardDao("saved_board")){
             dao.writeWithPrimal(primalBoard, board);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new SudokuWriteException("WriteError", e);
         }
     }
 
-    public void loadBoard() {
+    public void loadBoard() throws SudokuReadException {
         try (FileSudokuBoardDao dao = new FileSudokuBoardDao("saved_board")){
             ArrayList<SudokuBoard> boards = new ArrayList<>();
             boards = dao.readWithPrimal();
@@ -126,7 +145,7 @@ public class GameWindowController {
             board = boards.get(1);
             updateAllFields();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new SudokuReadException("ReadError", e);
         }
     }
 

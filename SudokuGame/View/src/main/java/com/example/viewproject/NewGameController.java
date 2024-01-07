@@ -1,10 +1,7 @@
 package com.example.viewproject;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,10 +11,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.Difficulty;
+import org.example.SudokuIOexception;
 
 import java.io.IOException;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 import java.util.logging.Logger;
@@ -153,7 +150,12 @@ public class NewGameController {
             newGameWindow.hide();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            try {
+                throw new SudokuIOexception("IOError", e);
+            } catch (SudokuIOexception ex) {
+                FRONT_END_LOGGER.info(ex.getMessage());
+                System.exit(1);
+            }
         }
     }
 

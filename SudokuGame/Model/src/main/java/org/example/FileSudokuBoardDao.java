@@ -15,27 +15,27 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
     }
 
     @Override
-    public SudokuBoard read() {
+    public SudokuBoard read() throws SudokuReadException {
         try (FileInputStream fileIn = new FileInputStream(path);
              ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
             return (SudokuBoard) objectIn.readObject();
         }  catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new SudokuReadException("ReadError", e);
         }
     }
 
     @Override
-    public void write(SudokuBoard obj) {
+    public void write(SudokuBoard obj) throws SudokuWriteException {
         try (FileOutputStream fileOut = new FileOutputStream(path);
              ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
             objectOut.writeObject(obj);
             BoardDaoLogger.info("Object saved to " + path + " file.");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new SudokuWriteException("WriteError", e);
         }
     }
 
-    public void writeWithPrimal(SudokuBoard obj, SudokuBoard obj2) {
+    public void writeWithPrimal(SudokuBoard obj, SudokuBoard obj2)  throws SudokuWriteException {
         ArrayList<SudokuBoard> boards = new ArrayList<>();
         try (FileOutputStream fileOut = new FileOutputStream(path);
              ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
@@ -44,16 +44,16 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
             objectOut.writeObject(boards);
             BoardDaoLogger.info("Objects saved to " + path + " file.");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new SudokuWriteException("WriteError", e);
         }
     }
 
-    public ArrayList<SudokuBoard> readWithPrimal() {
+    public ArrayList<SudokuBoard> readWithPrimal() throws SudokuReadException {
         try (FileInputStream fileIn = new FileInputStream(path);
              ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
             return (ArrayList<SudokuBoard>) objectIn.readObject();
         }  catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new SudokuReadException("ReadError", e);
         }
     }
 
