@@ -1,16 +1,14 @@
 package org.example;
 
 public enum Difficulty {
-    EASY,
-    NORMAL,
-    HARD;
+    EASY(15),
+    NORMAL(25),
+    HARD(35);
+
+    private final int value;
 
     public int getFieldsToErase() {
-        return switch (this) {
-            case EASY -> 5;
-            case NORMAL -> 10;
-            case HARD -> 15;
-        };
+        return this.value;
     }
 
     @Override
@@ -20,5 +18,9 @@ public enum Difficulty {
             case NORMAL -> "Normalny";
             case HARD -> "Trudny";
         };
+    }
+
+    private Difficulty(int value) {
+        this.value = value;
     }
 }

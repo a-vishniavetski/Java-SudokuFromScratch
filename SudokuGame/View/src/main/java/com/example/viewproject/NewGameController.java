@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.Difficulty;
@@ -25,14 +26,63 @@ public class NewGameController {
 
     @FXML
     public ToggleGroup difficultyToggleGroup;
+    public ToggleGroup langToggleGroup;
+    @FXML
     public Button newGameBtn;
+    @FXML
     public VBox newGameVbox;
+    @FXML
     public VBox radiosVbox;
 
     public Locale currentLocale = Locale.getDefault();
+    @FXML
+    public VBox langRadiosVbox;
+    @FXML
+    public HBox langRadiosHbox;
 
-    public void init() {
+    @FXML
+    public RadioButton EASY;
+    @FXML
+    public RadioButton NORMAL;
+    @FXML
+    public RadioButton HARD;
+    @FXML
+    public Label welcomeText;
+
+    Stage primaryStage;
+
+    public void init(Stage primaryStage) {
         ResourceBundle bundle = ResourceBundle.getBundle("com.example.viewproject.lang", currentLocale);
+        this.primaryStage = primaryStage;
+        RadioButton pl_PL = new RadioButton();
+        RadioButton en_EN = new RadioButton();
+
+        pl_PL.setToggleGroup(langToggleGroup);
+        en_EN.setToggleGroup(langToggleGroup);
+
+        pl_PL.setText("Polski");
+        en_EN.setText("English");
+        pl_PL.setId("pl_PL");
+        en_EN.setId("en_US");
+
+        pl_PL.setOnMouseClicked(mouseEvent -> {
+            changeLocale("pl_PL");
+        });
+
+        en_EN.setOnMouseClicked(mouseEvent -> {
+            changeLocale("en_US");
+        });
+
+        if (currentLocale.toString().equals("pl_PL")) {
+            pl_PL.setSelected(true);
+            en_EN.setSelected(false);
+        } else {
+            pl_PL.setSelected(false);
+            en_EN.setSelected(true);
+        }
+
+        langRadiosHbox.getChildren().add(pl_PL);
+        langRadiosHbox.getChildren().add(en_EN);
 
         for (Difficulty difficulty : Difficulty.values()) {
             RadioButton r = new RadioButton();
@@ -42,6 +92,17 @@ public class NewGameController {
             r.setToggleGroup(difficultyToggleGroup);
             if (difficulty.name().equals(Difficulty.values()[0].name())) {
                 r.setSelected(true);
+            }
+            switch (r.getId()){
+                case "EASY":
+                    EASY = r;
+                    break;
+                case "NORMAL":
+                    NORMAL = r;
+                    break;
+                case "HARD":
+                    HARD = r;
+                    break;
             }
             radiosVbox.getChildren().add(r);
         }
@@ -65,7 +126,7 @@ public class NewGameController {
             String localizedTitle = bundle.getString("gameTitle");
             String localizedDifficulty = bundle.getString(diff.name());
             stage.setTitle(localizedTitle + ": " + localizedDifficulty);
-            Scene scene = new Scene(loader.load(), 600, 500);
+            Scene scene = new Scene(loader.load(), 600, 600);
             stage.setScene(scene);
             GameWindowController controller = loader.getController();
             controller.currentLocale = currentLocale;
@@ -79,5 +140,39 @@ public class NewGameController {
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void changeLocale(String lang) {
+        switch (lang){
+            case "pl_PL":
+                currentLocale = Locale.of("pl_PL");
+                break;
+            case "en_US":
+                currentLocale = Locale.US;
+                break;
+        }
+        System.out.println(currentLocale);
+        updateLabels();
+    }
+
+    private void updateLabels() {
+        ResourceBundle bundle = ResourceBundle.getBundle("com.example.viewproject.lang", currentLocale);
+
+        String localizedTitle = bundle.getString("gameTitle");
+        String localizedEasy = bundle.getString("EASY");
+        String localizedNormal = bundle.getString("NORMAL");
+        String localizedHard = bundle.getString("HARD");
+        String localizedDiffText = bundle.getString("difficultyText");
+        String localizedWelcomeText = bundle.getString("welcomeText");
+        String localizedNewGame = bundle.getString("newGameBtn");
+
+        newGameBtn.setText(localizedNewGame);
+        EASY.setText(localizedEasy);
+        NORMAL.setText(localizedNormal);
+        HARD.setText(localizedHard);
+        welcomeText.setText(localizedWelcomeText);
+        difficultyText.setText(localizedDiffText);
+
+        primaryStage.setTitle(localizedTitle);
     }
 }

@@ -1,6 +1,7 @@
 package org.example;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class FileSudokuBoardDao implements Dao<SudokuBoard> {
 
@@ -27,6 +28,28 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
             objectOut.writeObject(obj);
             System.out.println("Object saved to " + path + " file.");
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void writeWithPrimal(SudokuBoard obj, SudokuBoard obj2) {
+        ArrayList<SudokuBoard> boards = new ArrayList<>();
+        try (FileOutputStream fileOut = new FileOutputStream(path);
+             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
+            boards.add(obj);
+            boards.add(obj2);
+            objectOut.writeObject(boards);
+            System.out.println("Objects saved to " + path + " file.");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<SudokuBoard> readWithPrimal() {
+        try (FileInputStream fileIn = new FileInputStream(path);
+             ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
+            return (ArrayList<SudokuBoard>) objectIn.readObject();
+        }  catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
