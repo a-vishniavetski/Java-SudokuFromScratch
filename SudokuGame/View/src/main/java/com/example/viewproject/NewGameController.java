@@ -15,7 +15,9 @@ import javafx.stage.Stage;
 import org.example.Difficulty;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class NewGameController {
     @FXML
@@ -27,10 +29,15 @@ public class NewGameController {
     public VBox newGameVbox;
     public VBox radiosVbox;
 
+    public Locale currentLocale;
+
     public void init() {
+        ResourceBundle bundle = ResourceBundle.getBundle("com.example.viewproject.lang", currentLocale);
+
         for (Difficulty difficulty : Difficulty.values()) {
             RadioButton r = new RadioButton();
-            r.setText(difficulty.toString());
+            String localizedDifficulty = bundle.getString(difficulty.name());
+            r.setText(localizedDifficulty);
             r.setId(difficulty.name());
             r.setToggleGroup(difficultyToggleGroup);
             if (difficulty.name().equals(Difficulty.values()[0].name())) {
@@ -51,6 +58,7 @@ public class NewGameController {
     public void openGameWindow(Difficulty diff) {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("game-window.fxml"));
+
             Stage stage = new Stage();
             stage.setTitle("Gra Sudoku - " + diff.toString());
             Scene scene = new Scene(loader.load(), 600, 500);

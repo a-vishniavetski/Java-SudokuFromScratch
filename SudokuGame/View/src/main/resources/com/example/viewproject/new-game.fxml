@@ -13,9 +13,9 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
-    <Label fx:id="welcomeText" text="Witaj w grze Sudoku!"/>
+    <Label fx:id="welcomeText" text="%welcomeText"/>
+    <Label fx:id="difficultyText" text="%difficultyText"/>
 
-    <Label fx:id="difficultyText" text="Wybierz proszę poziom trudności, aby rozpocząć rozgrywkę."/>
 
     <fx:define>
         <ToggleGroup fx:id="difficultyToggleGroup"/>
@@ -25,6 +25,5 @@
 
     </VBox>
 
-    <Button fx:id="newGameBtn" text="Start" onAction="#onStartGameBtnClick"/>
-
+    <Button fx:id="newGameBtn" text="%newGameBtn" onAction="#onStartGameBtnClick"/>
 </VBox>
