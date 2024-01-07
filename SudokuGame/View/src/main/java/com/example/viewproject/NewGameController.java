@@ -49,6 +49,9 @@ public class NewGameController {
     @FXML
     public Label welcomeText;
 
+    @FXML
+    public Label authorsText;
+
     Stage primaryStage;
 
     public void init(Stage primaryStage) {
@@ -106,6 +109,13 @@ public class NewGameController {
             }
             radiosVbox.getChildren().add(r);
         }
+
+        // Autorzy
+        ResourceBundle authorsBundle = ResourceBundle.getBundle("com.example.viewproject.AuthorsResourceBundle", currentLocale);
+        String[] authors = (String[]) authorsBundle.getObject("authors");
+        String localizedAuthorLabel = authorsBundle.getString("authorLabel");
+        localizedAuthorLabel = localizedAuthorLabel + ": " + String.join(", ", authors);
+        authorsText.setText(localizedAuthorLabel);
     }
 
     @FXML
@@ -145,7 +155,7 @@ public class NewGameController {
     private void changeLocale(String lang) {
         switch (lang){
             case "pl_PL":
-                currentLocale = Locale.of("pl_PL");
+                currentLocale = new Locale("pl", "PL");
                 break;
             case "en_US":
                 currentLocale = Locale.US;
@@ -166,6 +176,13 @@ public class NewGameController {
         String localizedWelcomeText = bundle.getString("welcomeText");
         String localizedNewGame = bundle.getString("newGameBtn");
 
+        // Autorzy
+        ResourceBundle authorsBundle = ResourceBundle.getBundle("com.example.viewproject.AuthorsResourceBundle", currentLocale);
+        String[] authors = (String[]) authorsBundle.getObject("authors");
+        String localizedAuthorLabel = authorsBundle.getString("authorLabel");
+        localizedAuthorLabel = localizedAuthorLabel + ": " + String.join(", ", authors);
+
+        authorsText.setText(localizedAuthorLabel);
         newGameBtn.setText(localizedNewGame);
         EASY.setText(localizedEasy);
         NORMAL.setText(localizedNormal);
