@@ -1,20 +1,19 @@
 package com.example.viewproject;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import org.apache.commons.lang3.StringUtils;
 import org.example.*;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.logging.Logger;
 
 import static java.lang.System.exit;
@@ -46,15 +45,60 @@ public class GameWindowController {
 
     public void initialize() {
         saveBoardBtn.setOnMouseClicked(mouseEvent -> {
-            try {
-                saveBoard();
-            } catch (SudokuWriteException e) {
-                Logger.info(e.getMessage());
+            // create a text input dialog
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd_MM_yyyy_HH_mm_ss");
+            LocalDateTime now = LocalDateTime.now();
+            // TODO: Lokalizacja tekstu tutaj
+            TextInputDialog td = new TextInputDialog("sudoku_" + dtf.format(now));
+            // setHeaderText
+            td.setHeaderText("Wpisz nazwę planszy");
+
+            Optional<String> result = td.showAndWait();
+            if (result.isPresent()) {
+                System.out.println(td.getEditor().getText());
+                try {
+                    saveBoard(td.getEditor().getText());
+                } catch (SudokuWriteException e) {
+                    Logger.info(e.getMessage());
+                }
             }
+
         });
         loadBoardBtn.setOnMouseClicked(mouseEvent -> {
+            ArrayList<String> names = new ArrayList<>();
+            try (JdbcSudokuBoardDao dao = new JdbcSudokuBoardDao("test")) {
+                names = dao.getAllBoardNames();
+            } catch (Exception e ){
+                System.out.println(e.getMessage());
+            }
+
+            ListView<String> list = new ListView<String>();
+            ObservableList<String> items = FXCollections.observableArrayList (
+                    names);
+            list.setItems(items);
+
+            Dialog<String> dialog = new Dialog<>();
+            GridPane gridPane = new GridPane();
+            gridPane.add(list, 0, 0);
+            dialog.getDialogPane().setContent(gridPane);
+            // TODO: Lokalizacja nazwy przycisków w popupach
+            dialog.getDialogPane().getButtonTypes().add(new ButtonType("Anuluj", ButtonBar.ButtonData.CANCEL_CLOSE));
+            dialog.getDialogPane().getButtonTypes().add(new ButtonType("Wczytaj", ButtonBar.ButtonData.OK_DONE));
+            Button closeButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.CLOSE);
+
+
+            Optional<String> result = dialog.showAndWait();
+            String boardName = "";
+            if (result.isPresent()) {
+                if (result.toString().contains("buttonData=CANCEL")) {
+                    System.out.println("closed");
+                    return;
+                }
+                boardName = list.getSelectionModel().getSelectedItem();
+            }
+
             try {
-                loadBoardFromDB();
+                loadBoardFromDB(boardName);
             } catch (SudokuReadException e) {
                 Logger.info(e.getMessage());
             }
@@ -152,15 +196,15 @@ public class GameWindowController {
         }
     }
 
-    public void saveBoard() throws SudokuWriteException {
-        try (FileSudokuBoardDao dao = new FileSudokuBoardDao("saved_board");
-                JdbcSudokuBoardDao daoDB = new JdbcSudokuBoardDao("saved_board")){
+    public void saveBoard(String boardName) throws SudokuWriteException {
+        try (FileSudokuBoardDao dao = new FileSudokuBoardDao(boardName);
+                JdbcSudokuBoardDao daoDB = new JdbcSudokuBoardDao(boardName)){
             dao.write(primalBoard, board);
             daoDB.write(board);
         } catch (Exception e) {
             throw new SudokuWriteException("WriteError", e);
         }
-        try (JdbcSudokuBoardDao daoDB = new JdbcSudokuBoardDao("saved_primalboard")){
+        try (JdbcSudokuBoardDao daoDB = new JdbcSudokuBoardDao(boardName + "_primal")){
             daoDB.write(primalBoard);
         } catch (Exception e) {
             throw new SudokuWriteException("WriteError", e);
@@ -179,18 +223,21 @@ public class GameWindowController {
         }
     }
 
-    public void loadBoardFromDB() throws SudokuReadException {
-        try (JdbcSudokuBoardDao dao = new JdbcSudokuBoardDao("saved_board")){
+    public void loadBoardFromDB(String boardName) throws SudokuReadException {
+        try (JdbcSudokuBoardDao dao = new JdbcSudokuBoardDao(boardName)){
             board = dao.read();
         } catch (Exception e) {
             throw new SudokuReadException("ReadError", e);
         }
+        updateAllFields();
 
-        try (JdbcSudokuBoardDao dao = new JdbcSudokuBoardDao("saved_primalboard")){
+        try (JdbcSudokuBoardDao dao = new JdbcSudokuBoardDao(boardName + "_primal")){
             primalBoard = dao.read();
         } catch (Exception e) {
             throw new SudokuReadException("ReadError", e);
         }
+        System.out.println(board);
+        System.out.println(primalBoard);
         updateAllFields();
     }
 

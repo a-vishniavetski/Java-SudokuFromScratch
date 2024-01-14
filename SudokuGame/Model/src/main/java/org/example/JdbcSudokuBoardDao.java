@@ -1,5 +1,6 @@
 package org.example;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class JdbcSudokuBoardDao implements Dao<SudokuBoard>{
 
@@ -12,6 +13,22 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>{
     private Connection connect() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/sudoku", "root", "");
+    }
+
+    public ArrayList<String> getAllBoardNames() {
+        ArrayList<String> names = new ArrayList<>();
+
+        try (Connection conn = connect()) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT name from boards WHERE name NOT LIKE \"%_primal%\"");
+            while (rs.next()) {
+                names.add(rs.getString("name"));
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return names;
     }
 
     @Override
@@ -70,9 +87,10 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>{
             for (int y = 0; y < 9; y++) {
                 for (int x = 0; x < 9; x++) {
                     int fieldValue = obj.get(x, y);
-                    int insert = stmt.executeUpdate(String.format("INSERT INTO fields(x, y, value, board_id) VALUES (%s, %s, %s, %s)", x, y, fieldValue, boardID));
+                    stmt.addBatch(String.format("INSERT INTO fields(x, y, value, board_id) VALUES (%s, %s, %s, %s)", x, y, fieldValue, boardID));
                 }
             }
+            int[] insert= stmt.executeBatch();
             System.out.println("Write complete");
         } catch (Exception e) {
             System.out.println(e.toString());

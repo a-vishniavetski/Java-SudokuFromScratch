@@ -1,2 +1,18 @@
-sty 14, 2024 3:11:42 PM com.example.viewproject.NewGameController onStartGameBtnClick
+sty 14, 2024 4:58:50 PM com.example.viewproject.NewGameController onStartGameBtnClick
 INFO: EASY
+sty 14, 2024 4:58:53 PM org.example.FileSudokuBoardDao write
+INFO: Objects saved to xd file.
+sty 14, 2024 4:58:53 PM org.example.FileSudokuBoardDao close
+INFO: Dao closed
+sty 14, 2024 4:59:11 PM org.example.FileSudokuBoardDao write
+INFO: Objects saved to xdd file.
+sty 14, 2024 4:59:11 PM org.example.FileSudokuBoardDao close
+INFO: Dao closed
+sty 14, 2024 4:59:29 PM org.example.FileSudokuBoardDao write
+INFO: Objects saved to sudoku_14_01_2024_16_59_24 file.
+sty 14, 2024 4:59:29 PM org.example.FileSudokuBoardDao close
+INFO: Dao closed
+sty 14, 2024 4:59:36 PM org.example.FileSudokuBoardDao write
+INFO: Objects saved to df file.
+sty 14, 2024 4:59:37 PM org.example.FileSudokuBoardDao close
+INFO: Dao closed
