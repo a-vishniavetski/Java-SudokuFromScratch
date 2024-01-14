@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.SudokuIOexception;
+import org.example.SudokuIoException;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -53,8 +53,8 @@ public class App extends Application {
             LogManager.getLogManager().readConfiguration(App.class.getResourceAsStream("/logging.properties"));
         } catch (IOException e) {
             try {
-                throw new SudokuIOexception("IOError", e);
-            } catch (SudokuIOexception ex) {
+                throw new SudokuIoException("IOError", e);
+            } catch (SudokuIoException ex) {
                 Logger.info(ex.getMessage());
                 System.exit(1);
             }

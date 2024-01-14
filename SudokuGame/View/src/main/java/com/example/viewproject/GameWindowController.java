@@ -10,7 +10,6 @@ import javafx.scene.layout.GridPane;
 import org.apache.commons.lang3.StringUtils;
 import org.example.*;
 
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -66,7 +65,7 @@ public class GameWindowController {
         });
         loadBoardBtn.setOnMouseClicked(mouseEvent -> {
             ArrayList<String> names = new ArrayList<>();
-            try (JdbcSudokuBoardDao dao = new JdbcSudokuBoardDao("test")) {
+            try (JdbcSudokuBoardDao dao = new JdbcSudokuBoardDao("test", "jdbc:mysql://localhost:3306/sudoku")) {
                 names = dao.getAllBoardNames();
             } catch (Exception e ){
                 System.out.println(e.getMessage());
@@ -198,13 +197,13 @@ public class GameWindowController {
 
     public void saveBoard(String boardName) throws SudokuWriteException {
         try (FileSudokuBoardDao dao = new FileSudokuBoardDao(boardName);
-                JdbcSudokuBoardDao daoDB = new JdbcSudokuBoardDao(boardName)){
+                JdbcSudokuBoardDao daoDB = new JdbcSudokuBoardDao(boardName, "jdbc:mysql://localhost:3306/sudoku")){
             dao.write(primalBoard, board);
             daoDB.write(board);
         } catch (Exception e) {
             throw new SudokuWriteException("WriteError", e);
         }
-        try (JdbcSudokuBoardDao daoDB = new JdbcSudokuBoardDao(boardName + "_primal")){
+        try (JdbcSudokuBoardDao daoDB = new JdbcSudokuBoardDao(boardName + "_primal", "jdbc:mysql://localhost:3306/sudoku")){
             daoDB.write(primalBoard);
         } catch (Exception e) {
             throw new SudokuWriteException("WriteError", e);
@@ -224,14 +223,14 @@ public class GameWindowController {
     }
 
     public void loadBoardFromDB(String boardName) throws SudokuReadException {
-        try (JdbcSudokuBoardDao dao = new JdbcSudokuBoardDao(boardName)){
+        try (JdbcSudokuBoardDao dao = new JdbcSudokuBoardDao(boardName, "jdbc:mysql://localhost:3306/sudoku")){
             board = dao.read();
         } catch (Exception e) {
             throw new SudokuReadException("ReadError", e);
         }
         updateAllFields();
 
-        try (JdbcSudokuBoardDao dao = new JdbcSudokuBoardDao(boardName + "_primal")){
+        try (JdbcSudokuBoardDao dao = new JdbcSudokuBoardDao(boardName + "_primal", "jdbc:mysql://localhost:3306/sudoku")){
             primalBoard = dao.read();
         } catch (Exception e) {
             throw new SudokuReadException("ReadError", e);

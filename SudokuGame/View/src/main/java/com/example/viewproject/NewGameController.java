@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.Difficulty;
-import org.example.SudokuIOexception;
+import org.example.SudokuIoException;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -151,8 +151,8 @@ public class NewGameController {
         }
         catch (IOException e) {
             try {
-                throw new SudokuIOexception("IOError", e);
-            } catch (SudokuIOexception ex) {
+                throw new SudokuIoException("IOError", e);
+            } catch (SudokuIoException ex) {
                 FRONT_END_LOGGER.info(ex.getMessage());
                 System.exit(1);
             }

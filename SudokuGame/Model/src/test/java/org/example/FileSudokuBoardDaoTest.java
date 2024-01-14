@@ -3,9 +3,6 @@ package org.example;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.beans.PropertyChangeListener;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.ArrayList;
 
 public class FileSudokuBoardDaoTest {
@@ -69,6 +66,73 @@ public class FileSudokuBoardDaoTest {
                 throw new SudokuReadException("ReadError", e);
             }
         });
+    }
+
+    // ---------- TESTY DLA BAZY DANYCH ----------
+    @Test
+    public void DBWriteReadTest() throws SudokuWriteException, SudokuReadException {
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(sudokuSolver);
+        board.solveGame();
+
+        // zapisujemy tablice używając try-with-resources
+        SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
+        try (Dao<SudokuBoard> dao = factory.getDbDao("testBoard", "jdbc:mysql://localhost:3306/sudoku");) {
+            dao.write(board);
+        } catch (Exception e) {
+            throw new SudokuWriteException("WriteError", e);
+        }
+
+        // odczytujemy tablice używając try-with-resources i porównujemy z oryginałem
+        try (Dao<SudokuBoard> dao = factory.getDbDao("testBoard", "jdbc:mysql://localhost:3306/sudoku");) {
+            SudokuBoard readBoard = dao.read();
+            assertEquals(board, readBoard);
+            // sprawdzamy czy jest innym obiektem
+            assertNotSame(board, readBoard);
+        } catch (Exception e) {
+            throw new SudokuReadException("ReadError", e);
+        }
+
+
+    }
+
+    @Test
+    public void DBExceptionTest() {
+        BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(sudokuSolver);
+        board.solveGame();
+
+        // probujemy zapisać plik do niepoprawnej connectionString
+        Exception exception = assertThrows(SudokuWriteException.class, () -> {
+            SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
+            try (Dao<SudokuBoard> dao = factory.getDbDao("testBoard", "nonsenseString");) {
+                dao.write(board);
+            } catch (Exception e) {
+                throw new SudokuWriteException("WriteError", e);
+            }
+        });
+
+        // probujemy odczytać nie istniejący plik
+        exception = assertThrows(SudokuReadException.class, () -> {
+            SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
+            try (Dao<SudokuBoard> dao = factory.getDbDao("not_saved_board", "jdbc:mysql://localhost:3306/sudoku");) {
+                SudokuBoard readBoard = dao.read();
+            } catch (Exception e) {
+                throw new SudokuReadException("ReadError", e);
+            }
+        });
+    }
+
+    @Test
+    public void DBGetAllBoardsTest() throws SudokuReadException {
+        SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
+        try (Dao<SudokuBoard> dao = factory.getDbDao("testBoard", "jdbc:mysql://localhost:3306/sudoku");) {
+            ArrayList<String> names = new ArrayList<>();
+            names = ((JdbcSudokuBoardDao) dao).getAllBoardNames();
+            assertTrue(names.contains("testBoard"));
+        } catch (Exception e) {
+            throw new SudokuReadException("ReadError", e);
+        }
     }
 
     @Test

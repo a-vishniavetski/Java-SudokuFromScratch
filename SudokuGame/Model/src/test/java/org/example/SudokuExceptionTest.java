@@ -6,8 +6,8 @@ public class SudokuExceptionTest {
 
     @Test
     public void IOexceptionTest() {
-        Exception exception = assertThrows(SudokuIOexception.class, () -> {
-            throw new SudokuIOexception("IOError", new Exception());
+        Exception exception = assertThrows(SudokuIoException.class, () -> {
+            throw new SudokuIoException("IOError", new Exception());
         });
     }
 
@@ -22,6 +22,20 @@ public class SudokuExceptionTest {
     public void WriteExceptionTest() {
         Exception exception = assertThrows(SudokuWriteException.class, () -> {
             throw new SudokuWriteException("WriteError", new Exception());
+        });
+    }
+
+    @Test
+    public void ClassNotFoundExceptionTest() {
+        Exception exception = assertThrows(SudokuClassNotFoundException.class, () -> {
+            throw new SudokuClassNotFoundException("ClassNotFoundError", new Exception());
+        });
+    }
+
+    @Test
+    public void SudokuSqlExceptionTest() {
+        Exception exception = assertThrows(SudokuSqlException.class, () -> {
+            throw new SudokuSqlException("SQLError", new Exception());
         });
     }
 }
