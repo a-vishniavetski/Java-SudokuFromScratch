@@ -26,6 +26,8 @@ public class GameWindowController {
     public Button saveBoardBtn;
     @FXML
     public Button loadBoardBtn;
+    @FXML
+    public Button checkBtn;
 
     private Difficulty difficulty;
 
@@ -52,10 +54,29 @@ public class GameWindowController {
         });
         loadBoardBtn.setOnMouseClicked(mouseEvent -> {
             try {
-                loadBoard();
+                loadBoardFromDB();
             } catch (SudokuReadException e) {
                 Logger.info(e.getMessage());
             }
+        });
+        checkBtn.setOnMouseClicked(mouseEvent -> {
+            for (int x = 0; x < 9; x++) {
+                for (int y = 0; y < 9; y++) {
+                    if (!board.getRow(y).verify() && !board.getColumn(x).verify()) {
+                        System.out.println("Something is wrong");
+                        return;
+                    }
+                }
+            }
+            for (int x = 0; x < 9; x += 3){
+                for (int y = 0; y < 9; y += 3) {
+                    if (!board.getBox(x, y).verify()) {
+                        System.out.println("something is wrong");
+                        return;
+                    }
+                }
+            }
+            System.out.println("You win!");
         });
     }
     public void initData(Difficulty difficulty) {
@@ -64,9 +85,11 @@ public class GameWindowController {
         String localizedDifficulty = bundle.getString(difficulty.name());
         String localizedSaveBtn = bundle.getString("saveBtnText");
         String localizedLoadBtn = bundle.getString("loadBtnText");
+        String localizedCheckBtn = bundle.getString("checkBtn");
 
         saveBoardBtn.setText(localizedSaveBtn);
         loadBoardBtn.setText(localizedLoadBtn);
+        checkBtn.setText(localizedCheckBtn);
 
         difficultyText.setText(localizedDifficulty);
 
@@ -130,8 +153,15 @@ public class GameWindowController {
     }
 
     public void saveBoard() throws SudokuWriteException {
-        try (FileSudokuBoardDao dao = new FileSudokuBoardDao("saved_board")){
-            dao.writeWithPrimal(primalBoard, board);
+        try (FileSudokuBoardDao dao = new FileSudokuBoardDao("saved_board");
+                JdbcSudokuBoardDao daoDB = new JdbcSudokuBoardDao("saved_board")){
+            dao.write(primalBoard, board);
+            daoDB.write(board);
+        } catch (Exception e) {
+            throw new SudokuWriteException("WriteError", e);
+        }
+        try (JdbcSudokuBoardDao daoDB = new JdbcSudokuBoardDao("saved_primalboard")){
+            daoDB.write(primalBoard);
         } catch (Exception e) {
             throw new SudokuWriteException("WriteError", e);
         }
@@ -147,6 +177,21 @@ public class GameWindowController {
         } catch (Exception e) {
             throw new SudokuReadException("ReadError", e);
         }
+    }
+
+    public void loadBoardFromDB() throws SudokuReadException {
+        try (JdbcSudokuBoardDao dao = new JdbcSudokuBoardDao("saved_board")){
+            board = dao.read();
+        } catch (Exception e) {
+            throw new SudokuReadException("ReadError", e);
+        }
+
+        try (JdbcSudokuBoardDao dao = new JdbcSudokuBoardDao("saved_primalboard")){
+            primalBoard = dao.read();
+        } catch (Exception e) {
+            throw new SudokuReadException("ReadError", e);
+        }
+        updateAllFields();
     }
 
     private void updateAllFields() {

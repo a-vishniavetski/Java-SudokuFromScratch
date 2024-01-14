@@ -35,7 +35,7 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
         }
     }
 
-    public void writeWithPrimal(SudokuBoard obj, SudokuBoard obj2)  throws SudokuWriteException {
+    public void write(SudokuBoard obj, SudokuBoard obj2)  throws SudokuWriteException {
         ArrayList<SudokuBoard> boards = new ArrayList<>();
         try (FileOutputStream fileOut = new FileOutputStream(path);
              ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {

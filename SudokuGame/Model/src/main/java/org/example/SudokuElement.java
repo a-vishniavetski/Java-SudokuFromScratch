@@ -26,8 +26,8 @@ abstract class SudokuElement implements Cloneable {
         }
 
         // usuwamy 0 z listy i setu
-        numberList.removeIf(n -> n == 0);
-        numberSet.removeIf(n -> n == 0);
+        //numberList.removeIf(n -> n == 0);
+        //numberSet.removeIf(n -> n == 0);
 
         return numberSet.size() == numberList.size();
     }

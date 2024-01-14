@@ -81,7 +81,7 @@ public class FileSudokuBoardDaoTest {
         // zapisujemy tablice używając try-with-resources
         SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
         try (FileSudokuBoardDao dao = new FileSudokuBoardDao("saved_board");) {
-            dao.writeWithPrimal(board, oldBoard);
+            dao.write(board, oldBoard);
         } catch (Exception e) {
             throw new SudokuWriteException("WriteError", e);
         }
