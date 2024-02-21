@@ -1,20 +1,18 @@
-<img src="https://github.com/a-vishniavetski/CPP-ChessFromScratch/assets/132013288/00e0cc43-3d73-4e50-a24b-62ec82186296" align="right" width="400"></img>
+<img src="https://github.com/a-vishniavetski/Java-SudokuFromScratch/assets/132013288/465ccd99-e6d1-4073-a5cb-94b0cbd88973" align="right" width="300"></img>
+
 
 # Feature-full Java Sudoku Game
-> Written from scratch by students of Politechnika Łódzka as a mid-term assignment.
+> This Java Sudoku application is a Java game developed from scratch. It utilizes the [JavaFX](https://github.com/openjdk/jfx) library for GUI, ensuring cross-platform compatibility. The game provides users with an experience of solving Sudoku puzzles, offering features such as checking if a position is solved, saving and loading game states, and choosing between different languages for localization. All necessary functionality, like a possibility of a database connection, error handling, and test coverage are implemented. The codebase follows object-oriented programming (OOP) principles, ensuring maintainability and extensibility.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Navigation
 
 - [Overview](#overview)
-- [Features](#features)
 - [Installation and Usage](#installation-and-usage)
 - [License](#license)
 
 ## Overview
-
-This Java Sudoku application is a Java game developed from scratch. It utilizes the [JavaFX](https://github.com/openjdk/jfx) library for GUI, ensuring cross-platform compatibility. The game provides users with an immersive experience for solving Sudoku puzzles, offering features such as checking if a puzzle position is solved, saving and loading game states, choosing between different languages for localization, and handling exceptions gracefully. The codebase follows object-oriented programming (OOP) principles, ensuring maintainability and extensibility.
 
 The Java Sudoku game is implemented with a variety of features and techniques to ensure robustness and functionality. Some of the key aspects of the implementation include:
 
@@ -29,7 +27,7 @@ The Java Sudoku game is implemented with a variety of features and techniques to
 
 - **Custom Exception Handling:** Implemented custom exception handling to gracefully handle errors and unexpected situations during gameplay.
 
-- **Maven:** The project is built and managed using Maven, ensuring dependency management and project structure consistency.
+- **Maven as a Build-Tool:** The project is built and managed using Maven, ensuring dependency management and project structure consistency.
 
 - **Unit Testing:** Achieved 98% code coverage with JUnit tests to validate the correctness of the implementation and ensure robustness.
 
