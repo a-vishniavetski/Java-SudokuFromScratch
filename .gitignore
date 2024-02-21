@@ -4,3 +4,5 @@
 .idea/
 target/
 *.iml
+*.log
+saved_game.*
