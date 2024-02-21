@@ -17,7 +17,7 @@ Key aspects of the implementation include:
 
 - **Graphical User Interface with [_JavaFX_](https://github.com/openjdk/jfx):** Configured using .fxml files.
 <p align="center">
-  <img src="https://github.com/a-vishniavetski/Java-SudokuFromScratch/assets/132013288/97a69bb9-b47b-4c85-9733-9db1f4bca375" alt="GUI" width="450">
+  <img src="https://github.com/a-vishniavetski/Java-SudokuFromScratch/assets/132013288/97a69bb9-b47b-4c85-9733-9db1f4bca375" alt="GUI" width="400">
 </p>
 
 
@@ -36,15 +36,15 @@ Load Games            |  Save a game
 
 - **Logging:** In-game operations like save/load and exceptions are logged using ```java.util.logging.Logger```
 
-- **Unit Testing:** Achieved **98% code coverage** with ```JUnit4``` tests to validate the correctness of the implementation and ensure robustness.
+- **Unit Testing:** **98% code coverage** with ```JUnit4``` tests to validate the correctness of the implementation and ensure robustness.
 
 - **Maven as a Build-Tool:** The project is built and managed using ```Maven```, ensuring dependency management and project structure consistency.
   
 - **Game Serialization:** It's also possible to save/load games locally.
   
-- **Exception Handling:** Implemented custom exception handling for all functionality.
+- **Exception Handling:** All Java exceptions are wrapped into a custom exception hierarchy.
   
 As well as fundamental Java concepts like Collections, Inheritance, Serialization, Interfaces, Decorators, etc.
 
 ## License
-The application is licensed under the terms of the MIT Open Source license and is available for free for any purposes.
+The application is licensed under the terms of the MIT Open Source license.
